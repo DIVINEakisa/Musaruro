@@ -15,6 +15,7 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 import actions  # noqa: E402
+import alerts  # noqa: E402
 import rainfall_watch as rw  # noqa: E402
 from indicators import add_priority  # noqa: E402
 
@@ -40,7 +41,7 @@ def load():
     return dict(crop=r("indicators_crop.csv"), dist=r("indicators_district.csv"), seg=r("survey_segments.csv"),
                 seed=r("improved_seed_district.csv"), rain=rain, geo=geo, dq=r("data_quality_log.csv"),
                 nat=r("national_reference.csv"), prac=r("practices_district.csv"), cds=r("crop_district_season.csv"),
-                seedcrop=r("improved_seed_crop_national.csv"))
+                seedcrop=r("improved_seed_crop_national.csv"), sow=r("sowing_month_district.csv"))
 
 
 D = load()
@@ -70,7 +71,8 @@ def choropleth(df, col, title, colorscale, zmid=None, fmt_hover="%{z:.0f}", zmin
 
 st.title("🌾 Musaruro")
 st.caption("Know your yield, act in time · District decision tool built on NISR Seasonal Agricultural Survey 2026 and CHIRPS rainfall")
-tab1, tab2, tab5, tab3, tab4 = st.tabs(["My district", "Priority districts", "Action plan", "Rainfall watch", "About the data"])
+tab1, tab6, tab2, tab5, tab3, tab4 = st.tabs(
+    ["My district", "Alerts", "Priority districts", "Action plan", "Rainfall watch", "About the data"])
 
 # ------------------------------------------------------------------ 1. My district (farmer view)
 with tab1:
@@ -121,6 +123,77 @@ with tab1:
     if len(seed):
         st.caption(f"Farmers using improved seed (all crops combined): {seed.farmers_improved_pct.iloc[0]:.1f}%. "
                    "This depends on which crops are grown, so it is context, not a verdict.")
+
+# ------------------------------------------------------------------ 1b. Smart alerts
+with tab6:
+    st.markdown("**Smart rainfall alerts.** Musaruro compares satellite rainfall with the 2016–2024 normal, either over the whole "
+                "season or over each district's **own sowing window** (the peak sowing month and the next one, from NISR's "
+                "sowing-date tables). Each alert says what changed, how rare it is, and what to check next.")
+    if not rw.baseline_ready(D["rain"]):
+        st.info("The rainfall baseline is not loaded, so alerts are unavailable.")
+    else:
+        PERIODS = {"Season A 2027 so far": ("A", 2027), "Season B 2026 (last season)": ("B", 2026),
+                   "Season A 2026": ("A", 2026)}
+        c1, c2 = st.columns(2)
+        per = c1.radio("Period", list(PERIODS), horizontal=True, key="al_per")
+        basis = c2.radio("Compare", ["Whole season", "Sowing window"], horizontal=True, key="al_basis")
+        a_s, a_y = PERIODS[per]
+        al = alerts.build(D["rain"], D["sow"], a_s, a_y, "season" if basis == "Whole season" else "sowing")
+        if al.empty:
+            st.info("The months of this window have not been observed yet. CHIRPS publishes monthly data about two weeks "
+                    "after the month ends. Try the whole-season view or an earlier period.")
+        else:
+            mt = int(al.months_used.max())
+            if mt < int(al.months_total.max()):
+                st.warning(f"Early view: {mt} of {int(al.months_total.max())} months of this window observed so far. "
+                           "Alerts can change as more months arrive.")
+            if len(al) < 30:
+                st.caption(f"{30 - len(al)} district(s) are not listed because their sowing window has no observed month yet.")
+            counts = al.label.value_counts()
+            cc = st.columns(4)
+            for col, (k, (lab, ic)) in zip(cc, alerts.LEVELS.items()):
+                col.metric(f"{ic} {lab}", int(counts.get(lab, 0)))
+            code = {"none": 0, "watch": 1, "warning": 2, "wet": 3, "unknown": 0}
+            fig = go.Figure(go.Choroplethmap(
+                geojson=D["geo"], locations=al.district, z=al.level.map(code), featureidkey="properties.shapeName",
+                zmin=-0.5, zmax=3.5, showscale=False, marker_line_width=0.8, marker_line_color="rgba(128,128,128,.8)",
+                marker_opacity=0.92, colorscale=[[0, "#d9d8d2"], [.25, "#d9d8d2"], [.25, "#fab219"], [.5, "#fab219"],
+                                                 [.5, "#d03b3b"], [.75, "#d03b3b"], [.75, "#2a78d6"], [1, "#2a78d6"]],
+                customdata=al[["icon", "label", "pct_of_normal"]],
+                hovertemplate="<b>%{location}</b><br>%{customdata[0]} %{customdata[1]} (%{customdata[2]:.0f}% of normal)<extra></extra>"))
+            fig.update_layout(map=dict(style="white-bg", center=dict(lat=-1.95, lon=29.87), zoom=7.2), height=440,
+                              margin=dict(l=0, r=0, t=0, b=0), paper_bgcolor="rgba(0,0,0,0)")
+            m, b = st.columns([3, 2])
+            m.plotly_chart(fig, width="stretch")
+            m.caption("Grey = normal · yellow = watch (below normal) · red = warning (far below) · blue = wet watch. "
+                      "The district list gives the same information in words.")
+            flagged = al[al.level.isin(["watch", "warning", "wet"])].sort_values("pct_of_normal")
+            pick_pool = flagged.district.tolist() or al.district.tolist()
+            b.markdown(f"**{len(flagged)} district(s) flagged**" if len(flagged) else "**No district flagged.** Showing any district.")
+            ad = b.selectbox("District", pick_pool, key="al_dist")
+            r = al[al.district == ad].iloc[0]
+            with b.container(border=True):
+                st.markdown(f"### {r.icon} {r.label}: {ad}")
+                st.write(alerts.explain(r))
+                crops_d = D["crop"][(D["crop"].district == ad) & (D["crop"].season == a_s) & D["crop"].yield_vs_national_pct.notna()] \
+                    .sort_values("harvested_ha", ascending=False).head(3).crop.tolist()
+                if crops_d:
+                    st.write("Main crops here (by harvested area, 2026 survey): " + ", ".join(crops_d) + ".")
+                st.markdown("**What to check next:** " + alerts.SAFE_STEPS)
+                msg = alerts.sms(r)
+                if msg:
+                    st.markdown("**SMS preview (English)**")
+                    st.code(msg, language=None)
+                    st.caption(f"{len(msg)} characters. Kinyarwanda text must be added and reviewed by a native speaker "
+                               "(see `src/alerts.py`).")
+            st.dataframe(al[["district", "icon", "label", "rain_mm", "normal_mm", "pct_of_normal", "k_dry"]].rename(columns={
+                "district": "District", "icon": "", "label": "Level", "rain_mm": "Rain (mm)", "normal_mm": "Normal (mm)",
+                "pct_of_normal": "% of normal", "k_dry": "Baseline years as dry"}).sort_values("% of normal").round(0),
+                hide_index=True, width="stretch")
+        st.caption("Rules (team-set, to be reviewed with agronomists): below 85% of normal = watch, below 60% = warning, "
+                   "140% or more = wet watch. In 2017–2024 about one in five district-seasons would have been a watch and none "
+                   "a warning at whole-season scale. Monitoring of past rainfall, not a forecast; low rainfall is not shown as a "
+                   "cause of low yields (see About).")
 
 # ------------------------------------------------------------------ 2. Priority districts (officer view)
 with tab2:

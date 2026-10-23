@@ -30,6 +30,8 @@ Not available in the NISR files: Season C, improved seed by crop *and* district.
 
 Result for 2026: Season A (Sep 2025–Jan 2026) about normal (median 104% of normal; 23 of 30 districts near normal); Season B (Feb–Jun 2026) drier than normal (median 85%; 15 of 30 districts drier). Monthly totals only; not a drought declaration.
 
+Check before presenting: Season B 2026 shows every district at or below normal (median 85%), and 0 baseline years were as dry for several districts. That may be a genuinely dry season, but recent CHIRPS months are *preliminary* and can differ slightly from the final product used for older years. Compare with Meteo Rwanda's 2026 seasonal review before calling it a deficit year.
+
 Limits that affect what the alert can claim:
 
 - Season windows used: Season A = Sep–Jan, Season B = Feb–Jun (assumption from the NISR sowing-date tables A-18 / B-16: most Season A

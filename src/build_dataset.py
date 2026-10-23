@@ -210,6 +210,21 @@ def build() -> None:
                                improved_seed_pct=float(r[3])))
     pd.DataFrame(sc).to_csv(OUT / "improved_seed_crop_national.csv", index=False)
 
+    # --- sowing dates by district (% of plots; SAS Table 18 in A, Table 16 in B) ----------
+    # Month each bin falls in (None = outside the season window, or "other season"; those bins are dropped).
+    sow_month = {"A": [None, 9, 9, 10, 10, 11, None], "B": [None, None, None, 2, 2, 3, 3, 4, None]}
+    sw = []
+    for season, tab in (("A", "Table 18"), ("B", "Table 16")):
+        wsx = openpyxl.load_workbook(RAW / SEASONS[season]["file"], data_only=True)[tab]
+        for r in wsx.iter_rows(values_only=True):
+            if r[1] and norm(r[1]) in PROVINCE:
+                vals = list(r[2:2 + len(sow_month[season])])
+                for m, v in zip(sow_month[season], vals):
+                    if m is not None and isinstance(v, (int, float)):
+                        sw.append(dict(season=season, district=norm(r[1]), month=m, pct=float(v)))
+    sw = pd.DataFrame(sw).groupby(["season", "district", "month"], as_index=False).pct.sum()
+    sw.to_csv(OUT / "sowing_month_district.csv", index=False)
+
     crops.to_csv(OUT / "crop_district_season.csv", index=False)
     nat.to_csv(OUT / "national_reference.csv", index=False)
     seed.to_csv(OUT / "improved_seed_district.csv", index=False)

@@ -83,3 +83,32 @@ def season_anomaly(rain: pd.DataFrame, season: str, year: int, years=BASELINE_YE
 
 def baseline_ready(rain: pd.DataFrame, years=BASELINE_YEARS, min_years=MIN_BASELINE_YEARS) -> bool:
     return rain[rain.year.isin(years)].year.nunique() >= min_years
+
+
+def window_anomaly(rain: pd.DataFrame, pairs: list[tuple[int, int]], baseline_months: list[int],
+                   years=BASELINE_YEARS, min_years=MIN_BASELINE_YEARS) -> pd.DataFrame:
+    """Rain over specific (year, month) pairs vs the mean of the same calendar months over baseline years.
+    Also returns k_dry: in how many baseline years the same window was as dry or drier (calibration).
+    `pairs` and `baseline_months` must list the same months; only months with data are used."""
+    idx = rain.set_index(["district", "year", "month"]).rain_mm
+    rows = []
+    for d in rain.district.unique():
+        have = [(y, m) for y, m in pairs if (d, y, m) in idx.index]
+        if not have:
+            continue
+        cur = sum(idx[(d, y, m)] for y, m in have)
+        months = [m for _, m in have]
+        base = []
+        for by in years:
+            vals = [idx.get((d, by if m < 9 or not any(mm < 9 for mm in months) else by - 1, m)) for m in months]
+            # months >= 9 in a window that also holds months < 9 belong to the previous calendar year
+            if all(v is not None and v == v for v in vals):
+                base.append(sum(vals))
+        if len(base) < min_years:
+            rows.append(dict(district=d, months_used=len(have), rain_mm=cur, normal_mm=float("nan"), pct_of_normal=float("nan"),
+                             baseline_years=len(base), k_dry=float("nan")))
+            continue
+        normal = sum(base) / len(base)
+        rows.append(dict(district=d, months_used=len(have), rain_mm=cur, normal_mm=normal, pct_of_normal=100 * cur / normal,
+                         baseline_years=len(base), k_dry=sum(b <= cur for b in base)))
+    return pd.DataFrame(rows)
