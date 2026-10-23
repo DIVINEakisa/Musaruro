@@ -1,0 +1,7 @@
+# Only needed to rebuild data/processed from the raw files and run tests
+-r requirements.txt
+openpyxl>=3.1
+rasterio>=1.4
+scipy>=1.11
+tifffile>=2024.1
+pytest>=8.0

@@ -1,0 +1,6 @@
+season,table,issue
+A,Table 20,'plots overall' equals 'land overall' in 100% of districts and exceeds both SSF and LSF values in some (impossible for a weighted average). plots_improved_pct is set to NaN for Season A; use farmers_improved_pct as the primary adoption metric.
+A,district vs national,"Fodder crops cultivated_ha: districts sum to 9,485 but NISR national row is 8,495 (11.7% gap). Source tables disagree; use district values."
+A,district vs national,"Fruits cultivated_ha: districts sum to 13,620 but NISR national row is 8,183 (66.4% gap). Source tables disagree; use district values."
+A,district vs national,"Vegetables cultivated_ha: districts sum to 19,635 but NISR national row is 19,244 (2.0% gap). Source tables disagree; use district values."
+A,district vs national,"Vegetables and Fruits cultivated_ha: districts sum to 33,255 but NISR national row is 27,427 (21.2% gap). Source tables disagree; use district values."

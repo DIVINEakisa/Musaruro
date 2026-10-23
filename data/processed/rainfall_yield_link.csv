@@ -1,0 +1,16 @@
+season,measure,n_districts,spearman_rho,p_value
+A,Maize,30,-0.204,0.281
+A,Bush bean,30,0.016,0.934
+A,Climbing bean,27,0.035,0.861
+A,Irish potato,28,0.204,0.297
+A,Cassava,26,-0.093,0.65
+A,Sweet potato,30,0.306,0.1
+A,All crops: yield shortfall index,30,0.217,0.249
+B,Maize,30,-0.084,0.658
+B,Bush bean,29,-0.098,0.613
+B,Climbing bean,28,0.244,0.212
+B,Irish potato,25,0.449,0.024
+B,Cassava,27,-0.198,0.323
+B,Sorghum,25,0.148,0.479
+B,Sweet potato,30,0.487,0.006
+B,All crops: yield shortfall index,30,0.213,0.259

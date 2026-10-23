@@ -1,0 +1,5 @@
+# App (what Streamlit Community Cloud installs)
+streamlit>=1.50
+pandas>=2.2
+plotly>=6.0
+numpy>=1.26
