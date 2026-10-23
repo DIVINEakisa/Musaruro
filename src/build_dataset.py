@@ -200,6 +200,16 @@ def build() -> None:
            if r[1] and norm(r[1]) in PROVINCE and isinstance(r[6], (int, float))]
     pd.DataFrame(seg).to_csv(OUT / "survey_segments.csv", index=False)
 
+    # --- improved seed share by crop, national (SAS Table 21 in A, Table 19 in B) -----------
+    sc = []
+    for season, tab in (("A", "Table 21"), ("B", "Table 19")):
+        wsx = openpyxl.load_workbook(RAW / SEASONS[season]["file"], data_only=True)[tab]
+        for r in wsx.iter_rows(values_only=True):
+            if r[1] and isinstance(r[3], (int, float)) and norm(r[1]) not in ("Crop",):
+                sc.append(dict(season=season, crop=crop_name(norm(r[1])) if norm(r[1]) != "Total" else "Total",
+                               improved_seed_pct=float(r[3])))
+    pd.DataFrame(sc).to_csv(OUT / "improved_seed_crop_national.csv", index=False)
+
     crops.to_csv(OUT / "crop_district_season.csv", index=False)
     nat.to_csv(OUT / "national_reference.csv", index=False)
     seed.to_csv(OUT / "improved_seed_district.csv", index=False)

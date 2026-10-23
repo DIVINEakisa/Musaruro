@@ -1,0 +1,35 @@
+season,crop,improved_seed_pct
+A,Maize,64.34
+A,Paddy rice,12.21
+A,Wheat,8.88
+A,Irish potato,3.91
+A,Cassava,0.22
+A,Bush bean,0.5
+A,Climbing bean,0.19
+A,Pea,0.21
+A,Soybean,1.16
+A,Cooking banana,0.05
+A,Dessert banana,0.48
+A,Banana for beer,0.17
+A,Vegetables,45.99
+A,Fruits,6.29
+A,Fodder crops,0.88
+A,Other crops,7.22
+A,Total,12.56
+B,Maize,57.5
+B,Paddy rice,8.43
+B,Wheat,10.97
+B,Irish potato,1.99
+B,Cassava,0.13
+B,Bush bean,0.43
+B,Climbing bean,0.57
+B,Pea,0.01
+B,Soybean,0.25
+B,Cooking banana,0.01
+B,Dessert banana,0.41
+B,Banana for beer,0.28
+B,Vegetables,41.31
+B,Fruits,7.6
+B,Fodder crops,1.28
+B,Other crops,13.41
+B,Total,9.04

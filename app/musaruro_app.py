@@ -14,6 +14,7 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+import actions  # noqa: E402
 import rainfall_watch as rw  # noqa: E402
 from indicators import add_priority  # noqa: E402
 
@@ -38,7 +39,8 @@ def load():
     rain = r("rainfall_district_month.csv")
     return dict(crop=r("indicators_crop.csv"), dist=r("indicators_district.csv"), seg=r("survey_segments.csv"),
                 seed=r("improved_seed_district.csv"), rain=rain, geo=geo, dq=r("data_quality_log.csv"),
-                nat=r("national_reference.csv"))
+                nat=r("national_reference.csv"), prac=r("practices_district.csv"), cds=r("crop_district_season.csv"),
+                seedcrop=r("improved_seed_crop_national.csv"))
 
 
 D = load()
@@ -68,7 +70,7 @@ def choropleth(df, col, title, colorscale, zmid=None, fmt_hover="%{z:.0f}", zmin
 
 st.title("🌾 Musaruro")
 st.caption("Know your yield, act in time · District decision tool built on NISR Seasonal Agricultural Survey 2026 and CHIRPS rainfall")
-tab1, tab2, tab3, tab4 = st.tabs(["My district", "Priority districts", "Rainfall watch", "About the data"])
+tab1, tab2, tab5, tab3, tab4 = st.tabs(["My district", "Priority districts", "Action plan", "Rainfall watch", "About the data"])
 
 # ------------------------------------------------------------------ 1. My district (farmer view)
 with tab1:
@@ -173,6 +175,35 @@ with tab2:
         st.plotly_chart(fig, width="stretch")
     else:
         st.info("No crop with a comparable yield below the national average in this district and season.")
+
+# ------------------------------------------------------------------ 2b. Action plan
+with tab5:
+    st.markdown("From analysis to action: for a district and season, Musaruro lists **where the gap is, who does better, which "
+                "practices differ, and what to check or try**. Findings come from the data. The *consider* lines are options to "
+                "test with local agronomists, not proven causes.")
+    c1, c2 = st.columns(2)
+    a_season = c1.radio("Season", ["A", "B"], format_func=lambda s: SEASON_LABEL[s], horizontal=True, key="a_season")
+    top_d = D["dist"][D["dist"].season == a_season].sort_values("priority_score", ascending=False).district.tolist()
+    a_dist = c2.selectbox("District (ordered by priority)", top_d, key="a_dist")
+    shares = actions.practice_shares(D["cds"], D["prac"])
+    seed_nat = D["seedcrop"].query("season == @a_season").set_index("crop").improved_seed_pct.to_dict()
+    sa5 = rw.season_anomaly(D["rain"], a_season, YEAR).set_index("district")
+    rs = sa5.loc[a_dist] if (rw.baseline_ready(D["rain"]) and sa5.loc[a_dist].months_available == sa5.loc[a_dist].months_in_window) else None
+    fi = D["dist"].query("district == @a_dist and season == @a_season").farmers_improved_pct.iloc[0]
+    items = actions.brief(a_dist, a_season, D["crop"], shares, seed_nat,
+                          None if rs is None else rs.status, None if rs is None else rs.pct_of_normal,
+                          int(SEG[a_dist]), None if pd.isna(fi) else fi)
+    if not items:
+        st.success("No yield gap against the national average on the main crops in this district and season.")
+    for i, it in enumerate(items, 1):
+        with st.container(border=True):
+            st.markdown(f"**{i}. {it['topic']}**")
+            st.markdown(f"**What the data shows:** {it['finding']}")
+            st.markdown(f"**Consider:** {it['consider']}")
+    st.download_button("Download this brief (Markdown)", actions.to_markdown(a_dist, a_season, items),
+                       file_name=f"musaruro_{a_dist}_season{a_season}.md", mime="text/markdown")
+    st.caption("Peer districts differ in altitude, soils and climate, so treat them as sources of questions, not targets. "
+               "Practice shares are % of developed cropland (NISR Tables 9–10 / 7–8), approximate.")
 
 # ------------------------------------------------------------------ 3. Rainfall watch
 with tab3:

@@ -16,6 +16,7 @@ and which districts to look at first.
 |---|---|---|
 | Farmer / cooperative | "How does my district do on my crop this season?" | District yield vs national average, area, production, Season A vs B |
 | Agricultural officer | "Where should we focus extension support first?" | District priority ranking built from yield shortfall and improved-seed use, with adjustable weights |
+| Officer | "What should we do in this district?" | An **action brief**: biggest crop gaps, best-yielding peer districts to learn from, practice differences (fertilizer, irrigation), improved-seed reality check, rainfall context, downloadable |
 | Planner | "How much output is at stake?" | Tonnes of output if a district matched the national average yield (a comparison, not a forecast) |
 
 ## Data
@@ -41,7 +42,8 @@ Known inconsistencies inside the NISR tables are logged in `data/processed/data_
    - **Priority score** = weighted percentile rank of the yield and seed indicators (weights adjustable)
 3. `src/climate.py` and `src/rainfall_watch.py` aggregate CHIRPS rainfall to districts for a **rainfall watch** (rainfall vs normal). Rainfall is deliberately *not* in the
    priority score: we tested it against district yields and found no consistent link (see `docs/DATA_NOTES.md`).
-4. Tests in `tests/` check the data against NISR's own totals and published values.
+4. `src/actions.py` turns the indicators into an action brief per district and season. Findings are computed from data; "consider" lines are options to test locally, never claimed causes.
+5. Tests in `tests/` check the data against NISR's own totals and published values.
 
 ## What Musaruro does **not** claim
 
