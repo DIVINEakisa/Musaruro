@@ -15,7 +15,9 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 import actions  # noqa: E402
+import advisor  # noqa: E402
 import alerts  # noqa: E402
+import sms_service  # noqa: E402
 import rainfall_watch as rw  # noqa: E402
 from indicators import add_priority  # noqa: E402
 
@@ -71,8 +73,9 @@ def choropleth(df, col, title, colorscale, zmid=None, fmt_hover="%{z:.0f}", zmin
 
 st.title("🌾 Musaruro")
 st.caption("Know your yield, act in time · District decision tool built on NISR Seasonal Agricultural Survey 2026 and CHIRPS rainfall")
-tab1, tab6, tab2, tab5, tab3, tab4 = st.tabs(
-    ["My district", "Alerts", "Priority districts", "Action plan", "Rainfall watch", "About the data"])
+tab1, tab6, tab7, tab2, tab5, tab3, tab4 = st.tabs(
+    ["My district", "Alerts", "My next action", "Priority districts", "Action plan", "Rainfall watch", "About the data"])
+PERIODS = {"Season A 2027 so far": ("A", 2027), "Season B 2026 (last season)": ("B", 2026), "Season A 2026": ("A", 2026)}
 
 # ------------------------------------------------------------------ 1. My district (farmer view)
 with tab1:
@@ -132,8 +135,6 @@ with tab6:
     if not rw.baseline_ready(D["rain"]):
         st.info("The rainfall baseline is not loaded, so alerts are unavailable.")
     else:
-        PERIODS = {"Season A 2027 so far": ("A", 2027), "Season B 2026 (last season)": ("B", 2026),
-                   "Season A 2026": ("A", 2026)}
         c1, c2 = st.columns(2)
         per = c1.radio("Period", list(PERIODS), horizontal=True, key="al_per")
         basis = c2.radio("Compare", ["Whole season", "Sowing window"], horizontal=True, key="al_basis")
@@ -194,6 +195,120 @@ with tab6:
                    "140% or more = wet watch. In 2017–2024 about one in five district-seasons would have been a watch and none "
                    "a warning at whole-season scale. Monitoring of past rainfall, not a forecast; low rainfall is not shown as a "
                    "cause of low yields (see About).")
+
+# ------------------------------------------------------------------ 1c. My next action
+with tab7:
+    st.markdown("**From warning to next step.** Pick a district, your crop and planting stage. Musaruro explains the rainfall signal, "
+                "lists **checks to discuss with an agronomist**, shows **evidence about crops** already grown in the district (not "
+                "a recommendation to switch), and previews an SMS. Every suggestion is labelled for what it is.")
+    if not rw.baseline_ready(D["rain"]):
+        st.info("The rainfall baseline is not loaded, so this page is unavailable.")
+    else:
+        c1, c2, c3, c4 = st.columns(4)
+        n_dist = c1.selectbox("District", DISTRICTS, index=DISTRICTS.index("Huye"), key="na_dist")
+        n_per = c2.selectbox("Period", list(PERIODS), index=1, key="na_per")
+        main_crops = ["Maize", "Bush bean", "Climbing bean", "Soybean", "Sorghum", "Irish potato", "Sweet potato", "Cassava",
+                      "Paddy rice", "Wheat", "Vegetables"]
+        n_crop = c3.selectbox("Crop you plan or grow", main_crops, key="na_crop")
+        n_stage = c4.selectbox("Planting stage", advisor.STAGES, key="na_stage")
+        n_s, n_y = PERIODS[n_per]
+        nal = alerts.build(D["rain"], D["sow"], n_s, n_y, "season")
+        nrow = nal[nal.district == n_dist]
+        if nrow.empty:
+            st.info("No rainfall observed yet for this period.")
+        else:
+            r = nrow.iloc[0]
+            lastm = D["rain"].sort_values(["year", "month"]).iloc[-1]
+            # 1. what is happening
+            st.subheader("1. What is happening")
+            if r.level == "none":
+                st.success(f"{r.icon} {r.label}: {alerts.explain(r)}")
+            elif r.level in ("watch", "warning", "wet"):
+                st.warning(f"{r.icon} {r.label}: {alerts.explain(r)}")
+            else:
+                st.info(alerts.explain(r))
+            st.caption("This is district-level past rainfall, not a forecast and not a measure of damage to your field.")
+            r2 = r.copy(); r2["window_text"] = alerts.window_text(r.window_months)
+            src = advisor.explain_source(r2, f"{int(lastm.year)}-{int(lastm.month):02d}")
+            src["Months observed in this window"] = f"{int(r.months_used)} of {int(r.months_total)}"
+            with st.expander("Source, period and limits of this indicator"):
+                st.table(pd.Series(src, name="").to_frame())
+            # 2. checks
+            st.subheader(f"2. What to check ({n_stage.lower()})")
+            ch = advisor.checks(r.level, n_stage)
+            if not ch:
+                st.write("No rainfall alert for this period, so no rainfall-specific action. Keep following normal local guidance.")
+            for i, c in enumerate(ch, 1):
+                with st.container(border=True):
+                    st.markdown(f"**{i}. {c['action']}**")
+                    st.caption(f"Why: {c['why']}")
+            if ch:
+                st.caption(advisor.PRELIM + ". Not verified guidance.")
+            # 3. crop evidence
+            st.subheader("3. Crops in this district: evidence, not a recommendation")
+            ev = advisor.crop_evidence(D["crop"], D["sow"], n_dist, n_s, n_crop)
+            ev = ev[ev.enough_area].head(8)
+            st.write(f"Usual sowing months in {n_dist}, Season {n_s}: **{advisor.usual_sowing(D['sow'], n_dist, n_s)}**.")
+            show = ev.rename(columns={"crop": "Crop", "harvested_ha": "Harvested (ha)", "share_pct": "Share of area (%)",
+                                      "yield_kg_ha": "Yield (kg/ha)", "yield_vs_national_pct": "vs its national yield (%)",
+                                      "verdict": "Verdict", "planned": "Your crop"})[
+                ["Crop", "Your crop", "Harvested (ha)", "Share of area (%)", "Yield (kg/ha)", "vs its national yield (%)", "Verdict"]]
+            st.dataframe(show.round(0), hide_index=True, width="stretch")
+            st.caption("Shows what farmers here already grow and how each crop does against its own national average (2026 survey). "
+                       "Yields in kg/ha cannot be compared between crops. It does not say which crop to plant: soil, altitude, "
+                       "remaining planting time, seed availability and prices are not in our data, so every row needs local agronomist review.")
+            # 4. SMS
+            st.subheader("4. SMS preview and simulation")
+            lang = st.radio("Language", ["en", "rw"], format_func=lambda x: "English" if x == "en" else "Kinyarwanda (needs review)",
+                            horizontal=True, key="na_lang")
+            default = alerts.sms(r, lang) or ""
+            if lang == "rw" and not default:
+                st.info("There is no reviewed Kinyarwanda template yet. Write one below and confirm a native speaker reviewed it.")
+            if not default and lang == "en":
+                st.info("No alert for this period, so no message is generated.")
+            text = st.text_area("Message (editable)", default, key=f"na_text_{lang}_{n_dist}_{n_per}", height=90)
+            li = sms_service.length_info(text)
+            st.caption(f"{li['chars']} characters · {li['note']}")
+            grp = st.selectbox("Recipient group", ["(choose)"] + sms_service.GROUPS, key="na_group")
+            consent = st.checkbox("I confirm recipients in this group agreed to receive these messages", key="na_consent")
+            reviewed = True
+            if lang == "rw":
+                reviewed = st.checkbox("A native Kinyarwanda speaker reviewed this text", key="na_rw_ok")
+            if "sms_hist" not in st.session_state:
+                st.session_state.sms_hist = []
+            if st.button("Simulate sending", key="na_send"):
+                errs = sms_service.validate(text, grp, consent, reviewed, lang)
+                if errs:
+                    for e in errs:
+                        st.error(e)
+                else:
+                    res = sms_service.get_provider().send(text, grp)
+                    sms_service.record(st.session_state.sms_hist, n_dist, grp, r.level, text, res, lang)
+                    st.warning(f"{res.status}. {res.detail}")
+            st.caption("Simulation mode: no SMS gateway is connected and no phone numbers are collected. Nothing is delivered.")
+            if st.session_state.sms_hist:
+                hd = pd.DataFrame(st.session_state.sms_hist)
+                st.dataframe(hd, hide_index=True, width="stretch")
+            # 5. follow-up
+            st.subheader("5. Follow-up record (demo)")
+            with st.form("na_follow"):
+                f1, f2 = st.columns(2)
+                got = f1.selectbox("Warning received and understood?", ["Yes", "Partly", "No", "Not known"])
+                did = f2.selectbox("Action taken?", ["Yes", "Partly", "No", "Not known"])
+                adv = f1.selectbox("Asked an agronomist?", ["Yes", "No", "Not known"])
+                note = f2.text_input("Observation or feedback (optional)")
+                ok = st.form_submit_button("Save demo record")
+            if "follow" not in st.session_state:
+                st.session_state.follow = []
+            if ok:
+                st.session_state.follow.append(dict(district=n_dist, period=n_per, level=r.level, received=got, action_taken=did,
+                                                    asked_agronomist=adv, note=note, record_type="DEMO (not real feedback)"))
+            if st.session_state.follow:
+                fd = pd.DataFrame(st.session_state.follow)
+                st.dataframe(fd, hide_index=True, width="stretch")
+                st.download_button("Download records (CSV)", fd.to_csv(index=False), "musaruro_followup_demo.csv", "text/csv")
+            st.caption("Demo mode: records exist only in this browser session and are not stored on a server. They show how follow-up "
+                       "would work; they are not evidence that alerts help farmers.")
 
 # ------------------------------------------------------------------ 2. Priority districts (officer view)
 with tab2:

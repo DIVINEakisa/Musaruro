@@ -89,3 +89,9 @@ Logged automatically in `data/processed/data_quality_log.csv`.
 - Improved-seed use by district is across all crops, so it moves with crop mix. Example: Rusizi is 46.7% in Season A (maize-heavy) and 7.0%
   in Season B. Musaruro shows both seasons and treats seed as context, not proof of cause.
 - Yield = production ÷ harvested area (checked in tests). For perennial crops such as banana, cultivated area includes immature stands.
+
+## My next action tab: what is simulated
+
+- SMS: **simulation only**. No gateway, no phone numbers, history lives in the browser session.
+- Follow-up records: demo only, not stored, not evidence of impact.
+- Crop table: NISR 2026 area and yield against each crop's own national yield. It is evidence of what is grown, not advice on what to plant.

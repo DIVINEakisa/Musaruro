@@ -43,7 +43,8 @@ Known inconsistencies inside the NISR tables are logged in `data/processed/data_
 3. `src/climate.py` and `src/rainfall_watch.py` aggregate CHIRPS rainfall to districts for a **rainfall watch** (rainfall vs normal). Rainfall is deliberately *not* in the
    priority score: we tested it against district yields and found no consistent link (see `docs/DATA_NOTES.md`).
 4. `src/actions.py` turns the indicators into an action brief per district and season. Findings are computed from data; "consider" lines are options to test locally, never claimed causes.
-5. Tests in `tests/` check the data against NISR's own totals and published values.
+5. `src/advisor.py` and `src/sms_service.py` power the **My next action** tab: generic checks by planting stage (labelled preliminary), crop *evidence* (never a switch recommendation), and an SMS preview with a **simulated** send (no gateway connected, no phone numbers stored, consent required).
+6. Tests in `tests/` check the data against NISR's own totals and published values.
 
 ## What Musaruro does **not** claim
 
