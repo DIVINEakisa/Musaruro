@@ -1,0 +1,121 @@
+district,chain,eligible,documented,ranked,robust,coverage,top_kwh_day,site_1,site_2,site_3,siting_status,siting_documented_cells,siting_documented_in_top,siting_candidates
+Nyarugenge,Potato cold storage,13,12,10,10,well,0.9736335840210183,COMO BUSINESS CENTER (Market),"Market near Nyarumana (-2.029, 30.025) (Market)","Market near Nyarumana (-2.051, 30.055) (Market)",ok,7,4,12
+Nyarugenge,Milk cooling,8,7,8,0,well,61.68396245108058,COMO BUSINESS CENTER (Market),Umutima Cooperative (Cooperative),"Market near Nyarumana (-2.029, 30.025) (Market)",ok,7,4,12
+Nyarugenge,Maize milling,9,8,9,1,well,7.534051437744277,COMO BUSINESS CENTER (Market),"Market near Nyarumana (-2.029, 30.025) (Market)","Market near Nyarumana (-2.051, 30.055) (Market)",ok,7,4,12
+Nyarugenge,Maize drying,9,8,9,0,well,2.455365879396985,COMO BUSINESS CENTER (Market),"Market near Nyarumana (-2.029, 30.025) (Market)",Umutima Cooperative (Cooperative),ok,7,4,12
+Gasabo,Potato cold storage,24,16,10,8,well,12.59975793666515,Gatsata / Karuruma (Town centre (no facility mapped)),Bumbogo (Village centre (no facility mapped)),Kabuga (Town centre (no facility mapped)),ok,11,10,12
+Gasabo,Milk cooling,19,11,10,8,well,183.39179060395455,Bumbogo (Village centre (no facility mapped)),Gatsata / Karuruma (Town centre (no facility mapped)),Kabuga (Town centre (no facility mapped)),ok,11,10,12
+Gasabo,Maize milling,22,14,10,7,well,39.722438465576275,Gatsata / Karuruma (Town centre (no facility mapped)),Kabuga (Town centre (no facility mapped)),Bumbogo (Village centre (no facility mapped)),ok,11,10,12
+Gasabo,Maize drying,22,14,10,8,well,12.914284957288475,Gatsata / Karuruma (Town centre (no facility mapped)),Bumbogo (Village centre (no facility mapped)),Kabuga (Town centre (no facility mapped)),ok,11,10,12
+Kicukiro,Potato cold storage,21,18,10,7,well,0.30598378025796996,Gahanga Market (Market),Warehouse near Masaka (Warehouse / store),Masaka (Town centre (no facility mapped)),ok,14,4,12
+Kicukiro,Milk cooling,15,12,10,7,well,72.7849403275492,Masaka (Town centre (no facility mapped)),Amahoro Ava Hejuru Cooperative (Cooperative),Gahanga Market (Market),ok,14,4,12
+Kicukiro,Maize milling,21,18,10,7,well,10.891007391575203,Gahanga Market (Market),Masaka (Town centre (no facility mapped)),Fruits shop (Market),ok,14,4,12
+Kicukiro,Maize drying,21,18,10,6,well,4.143637624575224,Warehouse near Masaka (Warehouse / store),Masaka (Town centre (no facility mapped)),Amahoro Ava Hejuru Cooperative (Cooperative),ok,14,4,12
+Nyanza,Potato cold storage,15,1,10,9,well,12.023809372366689,Kigoma (Town centre (no facility mapped)),Nyanza (east) (Village centre (no facility mapped)),Nyanza (west) (Town centre (no facility mapped)),ok,1,1,12
+Nyanza,Milk cooling,15,1,10,9,well,158.61687713983412,Kigoma (Town centre (no facility mapped)),Nyanza (east) (Village centre (no facility mapped)),Nyanza (west) (Town centre (no facility mapped)),ok,1,1,12
+Nyanza,Maize milling,15,1,10,9,well,145.69340290879862,Kigoma (Town centre (no facility mapped)),Nyanza (west) (Town centre (no facility mapped)),Nyanza (east) (Village centre (no facility mapped)),ok,1,1,12
+Nyanza,Maize drying,15,1,10,9,well,49.08031470149131,Kigoma (Town centre (no facility mapped)),Nyanza (east) (Village centre (no facility mapped)),Nyanza (west) (Town centre (no facility mapped)),ok,1,1,12
+Gisagara,Potato cold storage,8,2,8,1,well,5.541731477264634,Market near Remera Muganza (Market),"Village near -2.516, 29.872 (Village centre (no facility mapped))",Rusagara (Village centre (no facility mapped)),ok,1,1,12
+Gisagara,Milk cooling,7,1,7,0,well,138.218305567662,"Village near -2.516, 29.872 (Village centre (no facility mapped))",Rusagara (Village centre (no facility mapped)),Ntobo (Village centre (no facility mapped)),ok,1,1,12
+Gisagara,Maize milling,8,2,8,1,well,141.0643891119571,Market near Remera Muganza (Market),"Village near -2.516, 29.872 (Village centre (no facility mapped))",Rusagara (Village centre (no facility mapped)),ok,1,1,12
+Gisagara,Maize drying,8,2,8,1,well,46.830715436329335,Market near Remera Muganza (Market),"Village near -2.516, 29.872 (Village centre (no facility mapped))",Rusagara (Village centre (no facility mapped)),ok,1,1,12
+Nyaruguru,Potato cold storage,15,4,10,9,well,73.22063295675297,Kibeho (Village centre (no facility mapped)),New center market (Market),Remera (Village centre (no facility mapped)),ok,4,3,12
+Nyaruguru,Milk cooling,14,3,10,9,well,127.79877176333052,Kibeho (Village centre (no facility mapped)),Remera (Village centre (no facility mapped)),Maraba (Village centre (no facility mapped)),ok,4,3,12
+Nyaruguru,Maize milling,15,4,10,9,well,89.37701782862766,Kibeho (Village centre (no facility mapped)),New center market (Market),Remera (Village centre (no facility mapped)),ok,4,3,12
+Nyaruguru,Maize drying,15,4,10,8,well,30.59278508138285,Kibeho (Village centre (no facility mapped)),Remera (Village centre (no facility mapped)),Maraba (Village centre (no facility mapped)),ok,4,3,12
+Huye,Potato cold storage,20,7,10,8,well,19.430104866075766,cooperative (Cooperative),Rugogwe (Market),Cyizi Market (Market),ok,10,7,12
+Huye,Milk cooling,20,7,10,9,well,128.56263098739296,cooperative (Cooperative),Mukina (Village centre (no facility mapped)),Rugogwe (Market),ok,10,7,12
+Huye,Maize milling,20,7,10,8,well,105.02759022158939,Rugogwe (Market),Cyizi Market (Market),cooperative (Cooperative),ok,10,7,12
+Huye,Maize drying,20,7,10,8,well,36.38920534721131,cooperative (Cooperative),Rugogwe (Market),Cyizi Market (Market),ok,10,7,12
+Nyamagabe,Potato cold storage,17,9,10,7,well,184.05250141965465,Nyamagabe Market (Market),"Market near -2.279, 29.573 (Market)","Market near -2.327, 29.531 (Market)",ok,9,8,12
+Nyamagabe,Milk cooling,17,9,10,9,well,115.92278456775813,Mushubi (Village centre (no facility mapped)),Nyamagabe Market (Market),Musebeya (north) (Village centre (no facility mapped)),ok,9,8,12
+Nyamagabe,Maize milling,17,9,10,8,well,119.42938732331812,Nyamagabe Market (Market),"Market near -2.279, 29.573 (Market)","Market near -2.327, 29.531 (Market)",ok,9,8,12
+Nyamagabe,Maize drying,17,9,10,8,well,36.4398254534981,Nyamagabe Market (Market),Mushubi (Village centre (no facility mapped)),"Market near -2.279, 29.573 (Market)",ok,9,8,12
+Ruhango,Potato cold storage,13,0,10,9,well,2.6542793454373936,Buhanda (Town centre (no facility mapped)),Kinazi (Village centre (no facility mapped)),Ruzigo (Village centre (no facility mapped)),ok,1,0,12
+Ruhango,Milk cooling,13,0,10,9,well,143.35310114597,Kinazi (Village centre (no facility mapped)),Buhanda (Town centre (no facility mapped)),Ruzigo (Village centre (no facility mapped)),ok,1,0,12
+Ruhango,Maize milling,13,0,10,8,well,74.2142623339348,Buhanda (Town centre (no facility mapped)),Kinazi (Village centre (no facility mapped)),Ruzigo (Village centre (no facility mapped)),ok,1,0,12
+Ruhango,Maize drying,13,0,10,9,well,25.585370850994504,Buhanda (Town centre (no facility mapped)),Kinazi (Village centre (no facility mapped)),Ruzigo (Village centre (no facility mapped)),ok,1,0,12
+Muhanga,Potato cold storage,21,1,10,10,well,8.795299511802934,Buringa Market (Market),Niyamabuye (Village centre (no facility mapped)),Rugendabari (Town centre (no facility mapped)),ok,1,1,12
+Muhanga,Milk cooling,21,1,10,10,well,110.86656643909674,Niyamabuye (Village centre (no facility mapped)),Buringa Market (Market),Nyamabuye (Village centre (no facility mapped)),ok,1,1,12
+Muhanga,Maize milling,21,1,10,10,well,36.217845953776575,Buringa Market (Market),Niyamabuye (Village centre (no facility mapped)),Rugendabari (Town centre (no facility mapped)),ok,1,1,12
+Muhanga,Maize drying,21,1,10,10,well,12.002014873630497,Buringa Market (Market),Niyamabuye (Village centre (no facility mapped)),Rugendabari (Town centre (no facility mapped)),ok,1,1,12
+Kamonyi,Potato cold storage,13,0,10,10,well,9.465711488790461,Kamonyi (Village centre (no facility mapped)),Mugina (Village centre (no facility mapped)),Kamiranzovu (Village centre (no facility mapped)),ok,0,0,12
+Kamonyi,Milk cooling,13,0,10,10,well,147.15474842560465,Kamonyi (Village centre (no facility mapped)),Mugina (Village centre (no facility mapped)),Kamiranzovu (Village centre (no facility mapped)),ok,0,0,12
+Kamonyi,Maize milling,13,0,10,10,well,87.29434498579347,Kamonyi (Village centre (no facility mapped)),Mugina (Village centre (no facility mapped)),Kamiranzovu (Village centre (no facility mapped)),ok,0,0,12
+Kamonyi,Maize drying,13,0,10,10,well,31.1823812566957,Kamonyi (Village centre (no facility mapped)),Mugina (Village centre (no facility mapped)),Kamiranzovu (Village centre (no facility mapped)),ok,0,0,12
+Karongi,Potato cold storage,16,2,10,8,well,18.747651076754693,Gisyita (Village centre (no facility mapped)),Karongi Market (Market),Kirinda (Village centre (no facility mapped)),ok,4,4,12
+Karongi,Milk cooling,16,2,10,7,well,114.44604737091534,Gisyita (Village centre (no facility mapped)),Kirinda (Village centre (no facility mapped)),Gitaka (Village centre (no facility mapped)),ok,4,4,12
+Karongi,Maize milling,16,2,10,8,well,90.71380973917336,Gisyita (Village centre (no facility mapped)),Kirinda (Village centre (no facility mapped)),Karongi Market (Market),ok,4,4,12
+Karongi,Maize drying,16,2,10,8,well,31.578546444717272,Gisyita (Village centre (no facility mapped)),Kirinda (Village centre (no facility mapped)),Gitaka (Village centre (no facility mapped)),ok,4,4,12
+Rutsiro,Potato cold storage,23,4,10,7,partly,110.01977245312038,Mucyakabiri (Village centre (no facility mapped)),Gisiza Market (Market),Gakeri (Village centre (no facility mapped)),ok,5,5,12
+Rutsiro,Milk cooling,23,4,10,7,partly,105.2968597816234,Mucyakabiri (Village centre (no facility mapped)),Gakeri (Village centre (no facility mapped)),Mungoti Center (Village centre (no facility mapped)),ok,5,5,12
+Rutsiro,Maize milling,23,4,10,7,partly,63.73950685641152,Mucyakabiri (Village centre (no facility mapped)),Gisiza Market (Market),Gakeri (Village centre (no facility mapped)),ok,5,5,12
+Rutsiro,Maize drying,23,4,10,6,partly,21.681771121404193,Mucyakabiri (Village centre (no facility mapped)),Gisiza Market (Market),Gakeri (Village centre (no facility mapped)),ok,5,5,12
+Rubavu,Potato cold storage,23,3,10,6,well,314.62780327603826,Mahoko Market (Market),Rubavu Market (Market),"Village near Bungeshi Mukuru (-1.542, 29.354) (Village centre (no facility mapped))",ok,4,4,12
+Rubavu,Milk cooling,23,3,10,9,well,109.03477345597831,"Village near Bungeshi Mukuru (-1.542, 29.354) (Village centre (no facility mapped))",Mahoko Market (Market),Kabinzi (Village centre (no facility mapped)),ok,4,4,12
+Rubavu,Maize milling,23,3,10,6,well,28.86333610459199,Mahoko Market (Market),"Village near Bungeshi Mukuru (-1.542, 29.354) (Village centre (no facility mapped))",Rubavu Market (Market),ok,4,4,12
+Rubavu,Maize drying,23,3,10,6,well,9.144998624797184,Mahoko Market (Market),"Village near Bungeshi Mukuru (-1.542, 29.354) (Village centre (no facility mapped))",Rubavu Market (Market),ok,4,4,12
+Nyabihu,Potato cold storage,310,5,10,8,well,292.3308309543989,Kora Market (Market),Jenda Centre (Market),Nyabihu (Village centre (no facility mapped)),ok,6,5,12
+Nyabihu,Milk cooling,310,5,10,6,well,42.510796651009386,Kora Market (Market),Nyabihu (Village centre (no facility mapped)),Bigogwe (Village centre (no facility mapped)),ok,6,5,12
+Nyabihu,Maize milling,310,5,10,8,well,30.443449867887804,Kora Market (Market),Jenda Centre (Market),Nyabihu (Village centre (no facility mapped)),ok,6,5,12
+Nyabihu,Maize drying,310,5,10,8,well,9.064061307581643,Kora Market (Market),Jenda Centre (Market),Nyabihu (Village centre (no facility mapped)),ok,6,5,12
+Ngororero,Potato cold storage,40,5,10,8,well,72.09748293028467,Mwibereshi Kageyo Centre (Market),Market near Cyome Market (Market),Ngororero Market (Market),ok,6,6,12
+Ngororero,Milk cooling,40,5,10,7,well,97.7021721485573,Mwibereshi Kageyo Centre (Market),Market near Cyome Market (Market),Birambo (Village centre (no facility mapped)),ok,6,6,12
+Ngororero,Maize milling,40,5,10,9,well,67.50400817536564,Mwibereshi Kageyo Centre (Market),Market near Cyome Market (Market),Ngororero Market (Market),ok,6,6,12
+Ngororero,Maize drying,40,5,10,8,well,19.821526182060307,Mwibereshi Kageyo Centre (Market),Market near Cyome Market (Market),Birambo (Village centre (no facility mapped)),ok,6,6,12
+Rusizi,Potato cold storage,159,10,10,5,well,2.911686982164196,Nyamigina (east) (Village centre (no facility mapped)),Nyakabuye (Town centre (no facility mapped)),Kadashya (Market),ok,12,11,12
+Rusizi,Milk cooling,159,10,10,4,well,49.42266640005978,Nyamigina (east) (Village centre (no facility mapped)),Nyakabuye (Town centre (no facility mapped)),"Town near -2.404, 28.901 (Town centre (no facility mapped))",ok,12,11,12
+Rusizi,Maize milling,160,11,10,5,well,48.361205028947815,Nyamigina (east) (Village centre (no facility mapped)),Nyakabuye (Town centre (no facility mapped)),Kadashya (Market),ok,12,11,12
+Rusizi,Maize drying,160,11,10,4,well,15.557376435681492,Nyamigina (east) (Village centre (no facility mapped)),Nyakabuye (Town centre (no facility mapped)),Kadashya (Market),ok,12,11,12
+Nyamasheke,Potato cold storage,32,8,10,7,partly,82.5424803483746,Tyazo Market (Market),Kaderaho (Village centre (no facility mapped)),Kirambo (Village centre (no facility mapped)),ok,11,7,12
+Nyamasheke,Milk cooling,32,8,10,9,partly,125.85978181446916,Kaderaho (Village centre (no facility mapped)),Kirambo (Village centre (no facility mapped)),Bushenge Market (Village centre (no facility mapped)),ok,11,7,12
+Nyamasheke,Maize milling,32,8,10,7,partly,80.8244940076597,Tyazo Market (Market),Kaderaho (Village centre (no facility mapped)),Kirambo (Village centre (no facility mapped)),ok,11,7,12
+Nyamasheke,Maize drying,32,8,10,6,partly,27.04581650357767,Tyazo Market (Market),Kaderaho (Village centre (no facility mapped)),Kirambo (Village centre (no facility mapped)),ok,11,7,12
+Rulindo,Potato cold storage,10,1,10,0,well,43.95078898075316,Rusine (Town centre (no facility mapped)),Base (Town centre (no facility mapped)),Tare (Village centre (no facility mapped)),ok,2,2,12
+Rulindo,Milk cooling,10,1,10,0,well,120.0766096177437,Rusine (Town centre (no facility mapped)),Tare (Village centre (no facility mapped)),Base (Town centre (no facility mapped)),ok,2,2,12
+Rulindo,Maize milling,10,1,10,0,well,99.5968818722511,Rusine (Town centre (no facility mapped)),Base (Town centre (no facility mapped)),Tare (Village centre (no facility mapped)),ok,2,2,12
+Rulindo,Maize drying,10,1,10,0,well,33.020272690923626,Rusine (Town centre (no facility mapped)),Base (Town centre (no facility mapped)),Tare (Village centre (no facility mapped)),ok,2,2,12
+Gakenke,Potato cold storage,296,2,10,8,well,28.80587601195457,Nemba (Town centre (no facility mapped)),Musasa (Town centre (no facility mapped)),Ruganda (Town centre (no facility mapped)),ok,2,1,12
+Gakenke,Milk cooling,296,2,10,8,well,78.49025170998151,Nemba (Town centre (no facility mapped)),Kivuruga (Village centre (no facility mapped)),Musasa (Town centre (no facility mapped)),ok,2,1,12
+Gakenke,Maize milling,296,2,10,8,well,108.96108788904948,Nemba (Town centre (no facility mapped)),Musasa (Town centre (no facility mapped)),Ruganda (Town centre (no facility mapped)),ok,2,1,12
+Gakenke,Maize drying,296,2,10,8,well,36.63371583900003,Nemba (Town centre (no facility mapped)),Musasa (Town centre (no facility mapped)),Ruganda (Town centre (no facility mapped)),ok,2,1,12
+Musanze,Potato cold storage,125,4,10,9,well,151.75524011248717,Kinigi (Town centre (no facility mapped)),Musanze Agricultural products markets (Market),Town near Busogo (Town centre (no facility mapped)),ok,2,2,12
+Musanze,Milk cooling,124,3,10,8,well,81.4824937813885,Kinigi (Town centre (no facility mapped)),Town near Busogo (Town centre (no facility mapped)),Kimonyi (Village centre (no facility mapped)),ok,2,2,12
+Musanze,Maize milling,125,4,10,8,well,61.6483135847042,Kinigi (Town centre (no facility mapped)),Town near Busogo (Town centre (no facility mapped)),Musanze Agricultural products markets (Market),ok,2,2,12
+Musanze,Maize drying,125,4,10,9,well,20.51913673008801,Kinigi (Town centre (no facility mapped)),Town near Busogo (Town centre (no facility mapped)),Musanze Agricultural products markets (Market),ok,2,2,12
+Burera,Potato cold storage,57,1,10,7,well,151.73114553959542,"Village near -1.492, 29.834 (Village centre (no facility mapped))",Kinoni (Village centre (no facility mapped)),"Village near Cyanika (-1.369, 29.754) (Village centre (no facility mapped))",ok,1,0,12
+Burera,Milk cooling,57,1,10,8,well,87.31157184466194,"Village near -1.492, 29.834 (Village centre (no facility mapped))",Kinoni (Village centre (no facility mapped)),"Village near Cyanika (-1.369, 29.754) (Village centre (no facility mapped))",ok,1,0,12
+Burera,Maize milling,57,1,10,8,well,110.72207378026921,"Village near -1.492, 29.834 (Village centre (no facility mapped))",Kinoni (Village centre (no facility mapped)),"Village near Cyanika (-1.369, 29.754) (Village centre (no facility mapped))",ok,1,0,12
+Burera,Maize drying,57,1,10,7,well,39.185433370627415,"Village near -1.492, 29.834 (Village centre (no facility mapped))",Kinoni (Village centre (no facility mapped)),"Village near Cyanika (-1.369, 29.754) (Village centre (no facility mapped))",ok,1,0,12
+Gicumbi,Potato cold storage,19,2,10,8,well,185.57399788006956,Rukomo (Town centre (no facility mapped)),Miyove Market (Market),Gaseke (Town centre (no facility mapped)),ok,2,1,12
+Gicumbi,Milk cooling,19,2,10,8,well,147.46720978482227,Rukomo (Town centre (no facility mapped)),Mu Maya (Village centre (no facility mapped)),Gaseke (Town centre (no facility mapped)),ok,2,1,12
+Gicumbi,Maize milling,19,2,10,8,well,125.26201981548819,Rukomo (Town centre (no facility mapped)),Gaseke (Town centre (no facility mapped)),Miyove Market (Market),ok,2,1,12
+Gicumbi,Maize drying,19,2,10,8,well,39.39632949753133,Rukomo (Town centre (no facility mapped)),Gaseke (Town centre (no facility mapped)),Mu Maya (Village centre (no facility mapped)),ok,2,1,12
+Rwamagana,Potato cold storage,13,1,10,10,well,43.83079478300784,Nzige Market Place (Market),Nstinda (Town centre (no facility mapped)),Nyagasambu (Town centre (no facility mapped)),ok,1,1,12
+Rwamagana,Milk cooling,13,1,10,10,well,121.28306680003965,Nstinda (Town centre (no facility mapped)),Nyagasambu (Town centre (no facility mapped)),Nzige Market Place (Market),ok,1,1,12
+Rwamagana,Maize milling,13,1,10,10,well,178.20322066090253,Nzige Market Place (Market),Nstinda (Town centre (no facility mapped)),Nyagasambu (Town centre (no facility mapped)),ok,1,1,12
+Rwamagana,Maize drying,13,1,10,10,well,55.46948894181498,Nzige Market Place (Market),Nstinda (Town centre (no facility mapped)),Nyagasambu (Town centre (no facility mapped)),ok,1,1,12
+Nyagatare,Potato cold storage,6,2,6,2,partly,40.71484099261345,RUKOMO Market (Market),Nyagatare (Town centre (no facility mapped)),Matimba Market (Market),ok,2,2,12
+Nyagatare,Milk cooling,6,2,6,3,partly,230.4092279537846,Nyagatare (Town centre (no facility mapped)),Mimuli (Village centre (no facility mapped)),RUKOMO Market (Market),ok,2,2,12
+Nyagatare,Maize milling,6,2,6,2,partly,1368.136949389584,RUKOMO Market (Market),Nyagatare (Town centre (no facility mapped)),Matimba Market (Market),ok,2,2,12
+Nyagatare,Maize drying,6,2,6,2,partly,414.12266377716367,Nyagatare (Town centre (no facility mapped)),RUKOMO Market (Market),Mimuli (Village centre (no facility mapped)),ok,2,2,12
+Gatsibo,Potato cold storage,12,0,10,9,partly,88.54565404926761,Ngarama (Town centre (no facility mapped)),Ndatemwa (Village centre (no facility mapped)),Nyakayaga (Village centre (no facility mapped)),ok,0,0,12
+Gatsibo,Milk cooling,12,0,10,10,partly,225.43333713765983,Ndatemwa (Village centre (no facility mapped)),Nyakayaga (Village centre (no facility mapped)),Gakenke (Village centre (no facility mapped)),ok,0,0,12
+Gatsibo,Maize milling,12,0,10,9,partly,460.8445214682018,Ngarama (Town centre (no facility mapped)),Ndatemwa (Village centre (no facility mapped)),Nyakayaga (Village centre (no facility mapped)),ok,0,0,12
+Gatsibo,Maize drying,12,0,10,9,partly,162.2685984459434,Ngarama (Town centre (no facility mapped)),Ndatemwa (Village centre (no facility mapped)),Nyakayaga (Village centre (no facility mapped)),ok,0,0,12
+Kayonza,Potato cold storage,16,3,10,8,partly,51.633713557101274,Ruramira (Town centre (no facility mapped)),Mukoyoyo (Village centre (no facility mapped)),Kabarondo (Town centre (no facility mapped)),ok,5,4,12
+Kayonza,Milk cooling,16,3,10,7,partly,159.23114942601464,Mukoyoyo (Village centre (no facility mapped)),Ruramira (Town centre (no facility mapped)),Kabarondo (Town centre (no facility mapped)),ok,5,4,12
+Kayonza,Maize milling,17,4,10,9,partly,381.4441168386722,Milling Machine (Mill),Ruramira (Town centre (no facility mapped)),Kabarondo (Town centre (no facility mapped)),ok,5,4,12
+Kayonza,Maize drying,17,4,10,9,partly,122.47051811722912,Milling Machine (Mill),Ruramira (Town centre (no facility mapped)),Kabarondo (Town centre (no facility mapped)),ok,5,4,12
+Kirehe,Potato cold storage,16,2,10,9,partly,40.46935536983032,Kamombo (Village centre (no facility mapped)),Cooperative Kakera (Cooperative),Nyakarambi (Town centre (no facility mapped)),ok,2,2,12
+Kirehe,Milk cooling,15,1,10,9,partly,140.24127015877394,Kamombo (Village centre (no facility mapped)),Nyakarambi (Town centre (no facility mapped)),Cooperative Kakera (Cooperative),ok,2,2,12
+Kirehe,Maize milling,16,2,10,10,partly,551.1630878212743,Jiangdong Milling Machine (Mill),Nyakarambi (Town centre (no facility mapped)),Rwabutazi (Town centre (no facility mapped)),ok,2,2,12
+Kirehe,Maize drying,16,2,10,9,partly,191.9817923815909,Jiangdong Milling Machine (Mill),Cooperative Kakera (Cooperative),Nyakarambi (Town centre (no facility mapped)),ok,2,2,12
+Ngoma,Potato cold storage,6,0,6,1,well,66.71286550185721,Sake (Town centre (no facility mapped)),Ngoma (Town centre (no facility mapped)),Kibaya (Town centre (no facility mapped)),ok,0,0,12
+Ngoma,Milk cooling,6,0,6,1,well,167.04435868502617,Sake (Town centre (no facility mapped)),Ngoma (Town centre (no facility mapped)),Kibaya (Town centre (no facility mapped)),ok,0,0,12
+Ngoma,Maize milling,6,0,6,1,well,556.1382156241337,Sake (Town centre (no facility mapped)),Ngoma (Town centre (no facility mapped)),Kibaya (Town centre (no facility mapped)),ok,0,0,12
+Ngoma,Maize drying,6,0,6,1,well,177.9642289997228,Sake (Town centre (no facility mapped)),Ngoma (Town centre (no facility mapped)),Kibaya (Town centre (no facility mapped)),ok,0,0,12
+Bugesera,Potato cold storage,25,4,10,8,well,7.746347433846716,"Market near -2.103, 30.194 (Market)",Bihari (Village centre (no facility mapped)),Ramiro (Town centre (no facility mapped)),ok,3,3,12
+Bugesera,Milk cooling,24,3,10,7,well,121.85646322793195,Bihari (Village centre (no facility mapped)),Ramiro (Town centre (no facility mapped)),Village near Bihari (Village centre (no facility mapped)),ok,3,3,12
+Bugesera,Maize milling,24,3,10,8,well,162.12069385426435,Bihari (Village centre (no facility mapped)),Ramiro (Town centre (no facility mapped)),"Market near -2.103, 30.194 (Market)",ok,3,3,12
+Bugesera,Maize drying,24,3,10,7,well,52.37576720533185,Bihari (Village centre (no facility mapped)),Ramiro (Town centre (no facility mapped)),"Market near -2.103, 30.194 (Market)",ok,3,3,12

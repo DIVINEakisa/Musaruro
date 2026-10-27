@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 import actions  # noqa: E402
 import advisor  # noqa: E402
+import enagis_bridge as eb  # noqa: E402
 import alerts  # noqa: E402
 import sms_service  # noqa: E402
 import rainfall_watch as rw  # noqa: E402
@@ -43,7 +44,9 @@ def load():
     return dict(crop=r("indicators_crop.csv"), dist=r("indicators_district.csv"), seg=r("survey_segments.csv"),
                 seed=r("improved_seed_district.csv"), rain=rain, geo=geo, dq=r("data_quality_log.csv"),
                 nat=r("national_reference.csv"), prac=r("practices_district.csv"), cds=r("crop_district_season.csv"),
-                seedcrop=r("improved_seed_crop_national.csv"), sow=r("sowing_month_district.csv"))
+                seedcrop=r("improved_seed_crop_national.csv"), sow=r("sowing_month_district.csv"),
+                eg_dist=r("enagis_district.csv"), eg_chain=r("enagis_district_chain.csv"),
+                eg_prod=pd.read_csv(ROOT / "data" / "enagis" / "district_production_2024.csv"))
 
 
 D = load()
@@ -73,8 +76,9 @@ def choropleth(df, col, title, colorscale, zmid=None, fmt_hover="%{z:.0f}", zmin
 
 st.title("🌾 Musaruro")
 st.caption("Know your yield, act in time · District decision tool built on NISR Seasonal Agricultural Survey 2026 and CHIRPS rainfall")
-tab1, tab6, tab7, tab2, tab5, tab3, tab4 = st.tabs(
-    ["My district", "Alerts", "My next action", "Priority districts", "Action plan", "Rainfall watch", "About the data"])
+tab1, tab6, tab7, tab2, tab5, tab8, tab3, tab4 = st.tabs(
+    ["My district", "Alerts", "My next action", "Priority districts", "Action plan", "Infrastructure (EnaGIS)", "Rainfall watch",
+     "About the data"])
 PERIODS = {"Season A 2027 so far": ("A", 2027), "Season B 2026 (last season)": ("B", 2026), "Season A 2026": ("A", 2026)}
 
 # ------------------------------------------------------------------ 1. My district (farmer view)
@@ -393,6 +397,109 @@ with tab5:
     st.caption("Peer districts differ in altitude, soils and climate, so treat them as sources of questions, not targets. "
                "Practice shares are % of developed cropland (NISR Tables 9–10 / 7–8), approximate.")
 
+# ------------------------------------------------------------------ 2c. Infrastructure (EnaGIS)
+with tab8:
+    st.markdown("**Agriculture, climate and infrastructure in one district view.** Musaruro (yield gaps from NISR SAS 2026, rainfall "
+                "from CHIRPS) is shown next to **EnaGIS** (Team Dynamis): candidate storage, cooling, milling and drying sites, and "
+                "estimated electricity needs. Each side keeps its own method and evidence label. **No combined score**, and neither "
+                "side is claimed to explain the other.")
+    egd, egc = D["eg_dist"], D["eg_chain"]
+    prod = eb.production_2026(D["crop"], D["eg_prod"]).set_index("district")
+    di8 = add_priority(D["dist"])
+    i_dist = st.selectbox("District", DISTRICTS, index=DISTRICTS.index("Nyabihu"), key="in_dist")
+    ov = eb.overview(i_dist, egc, egd)
+    pa = di8[(di8.district == i_dist)].set_index("season")
+    rk = {k: int(di8[di8.season == k].priority_score.rank(ascending=False, method="min")[di8[di8.season == k].district == i_dist].iloc[0])
+          for k in ("A", "B")}
+    top_gap = D["crop"][(D["crop"].district == i_dist) & (D["crop"].season == "A") & (D["crop"].shortfall_t > 0)] \
+        .sort_values("shortfall_t", ascending=False).head(2)
+    gap_txt = "; ".join(f"{r.crop} {abs(r.yield_vs_national_pct):.0f}% below national (about {r.shortfall_t:,.0f} t)"
+                        for r in top_gap.itertuples()) or "none among the main crops"
+    al8 = alerts.build(D["rain"], D["sow"], "B", 2026, "season")
+    r8 = al8[al8.district == i_dist]
+    clim = alerts.explain(r8.iloc[0]) if len(r8) else None
+    clim_lab = f"{r8.iloc[0].icon} {r8.iloc[0].label}" if len(r8) else "n/a"
+
+    c1, c2, c3 = st.columns(3)
+    with c1.container(border=True):
+        st.markdown("#### Agriculture (Musaruro)")
+        st.metric("Priority rank, Season A / B (1 = highest)", f"{rk['A']} / {rk['B']}")
+        st.caption(f"Largest yield gaps, Season A: {gap_txt}.")
+        st.caption("Source: NISR SAS 2026. Observed survey estimate; small samples are noisy.")
+    with c2.container(border=True):
+        st.markdown("#### Climate (CHIRPS)")
+        st.metric("Season B 2026 rainfall", clim_lab)
+        st.caption(clim or "")
+        st.caption("Past rainfall monitoring, not a forecast, and not evidence of road or field conditions.")
+    with c3.container(border=True):
+        st.markdown("#### Setting (EnaGIS)")
+        d8 = ov["district"]
+        st.metric("Documented facilities", int(d8["documented_sites"]))
+        st.caption(f"Population {int(d8['population']):,} (WorldPop, OBSERVED) · buildings {int(d8['buildings']):,} · "
+                   f"town and village points {int(d8['settlement_points'])}.")
+        st.caption("Source: OpenStreetMap, Overture Maps, WorldPop; gathered 10 Oct 2026.")
+
+    st.subheader("Infrastructure screening by value chain (EnaGIS)")
+    t8 = egc[egc.district == i_dist][["chain", "ranked", "robust", "top_kwh_day", "site_1", "coverage", "siting_candidates"]].copy()
+    t8.columns = ["Value chain", "Sites ranked", "Robust (of 10)", "Top site kWh/day [ESTIMATED]", "First site to check",
+                  "Data coverage", "Look-alike sites to check [PREDICTED]"]
+    st.dataframe(t8.round(0), hide_index=True, width="stretch")
+    st.caption("These are candidate locations to investigate by phone or site visit, not confirmed facilities or investments. kWh/day is "
+               "an estimate from stated assumptions, not measured use. Field verification count: 0.")
+
+    st.subheader("Production, by survey year (shown separately)")
+    if i_dist in prod.index:
+        pr = prod.loc[i_dist]
+        pc1, pc2 = st.columns(2)
+        pc1.metric("Potato, SAS 2026 (A+B, Musaruro)", f"{pr.potato_t_2026:,.0f} t" if pd.notna(pr.potato_t_2026) else "unknown",
+                   help="Observed NISR survey estimate")
+        pc1.metric("Maize, SAS 2026 (A+B, Musaruro)", f"{pr.maize_t_2026:,.0f} t" if pd.notna(pr.maize_t_2026) else "unknown")
+        pc2.metric("Potato, 2024 estimate (EnaGIS input)", f"{pr.potato_t_2024:,.0f} t", help="ESTIMATED: SAS 2024 Season A shares scaled to national totals")
+        pc2.metric("Maize, 2024 estimate (EnaGIS input)", f"{pr.maize_t_2024:,.0f} t")
+        if bool(pr.yields_imputed):
+            st.warning("EnaGIS imputed this district's yields because the survey table lacked them. Treat its production inputs with care.")
+        st.caption("EnaGIS ranks sites using the 2024-based estimate. We show Musaruro's 2026 survey figures beside it for context; "
+                   "re-running EnaGIS with 2026 inputs needs its own data pipeline and an internet connection.")
+    brief_md = eb.to_markdown(
+        i_dist, ov,
+        {"Priority rank (1 = highest), Season A / B": f"{rk['A']} / {rk['B']}", "Largest yield gaps, Season A": gap_txt},
+        (f"{clim_lab}: {clim}" if clim else None), prod.loc[i_dist] if i_dist in prod.index else None)
+    st.download_button("Download district brief (Markdown)", brief_md, file_name=f"musaruro_enagis_{i_dist}.md", mime="text/markdown")
+
+    st.subheader("All districts side by side")
+    sb = di8[di8.season == "A"][["district", "province", "priority_score"]].rename(columns={"priority_score": "Priority A"}).merge(
+        di8[di8.season == "B"][["district", "priority_score"]].rename(columns={"priority_score": "Priority B"}), on="district")
+    sb = sb.merge(al8[["district", "label", "pct_of_normal"]].rename(columns={"label": "Rainfall B 2026", "pct_of_normal": "% of normal"}),
+                  on="district", how="left")
+    sb = sb.merge(egd[["district", "documented_sites", "population"]], on="district")
+    pc = egc[egc.chain == "Potato cold storage"][["district", "robust", "top_kwh_day"]].rename(
+        columns={"robust": "Potato storage robust", "top_kwh_day": "Potato storage kWh/day"})
+    mm = egc[egc.chain == "Maize milling"][["district", "top_kwh_day"]].rename(columns={"top_kwh_day": "Maize milling kWh/day"})
+    sb = sb.merge(pc, on="district").merge(mm, on="district")
+    f1, f2 = st.columns(2)
+    lv = f1.multiselect("Rainfall status (B 2026)", sorted(sb["Rainfall B 2026"].dropna().unique()), key="in_lv")
+    top_only = f2.checkbox("Only districts in the top 10 on Musaruro priority (Season A)", key="in_top")
+    if lv:
+        sb = sb[sb["Rainfall B 2026"].isin(lv)]
+    if top_only:
+        sb = sb[sb["Priority A"].rank(ascending=False, method="min") <= 10]
+    sb = sb.rename(columns={"district": "District", "province": "Province", "documented_sites": "Documented facilities",
+                            "population": "Population"})
+    st.dataframe(sb.round(0).sort_values("Priority A", ascending=False), hide_index=True, width="stretch")
+    st.caption("Click a column heading to sort. Use the filters to find districts that appear on several lists, then investigate; "
+               "the table does not rank districts overall. Priority scores are Musaruro's (yield gap and improved-seed use). kWh/day are "
+               "EnaGIS estimates for the top-ranked site only.")
+
+    st.subheader("EnaGIS Live, embedded")
+    st.markdown("Search a district (for example \"Musanze District, Rwanda\") to gather open data and rank sites. Searching needs an "
+                "internet connection and takes about a minute. The **Nyabihu · Irish potato cold storage** featured analysis opens offline.")
+    st.components.v1.iframe("app/static/enagis-live/index.html", height=820)
+    st.markdown("[Open EnaGIS Live in its own tab](app/static/enagis-live/index.html) · "
+                "[EnaGIS on GitHub](https://github.com/Elie1Z/EnaGIS)")
+    st.caption("EnaGIS by Team Dynamis, MIT licence. Data: © OpenStreetMap contributors (ODbL), Overture Maps Foundation, WorldPop (CC BY 4.0), "
+               "Open-Meteo (CC BY 4.0), NISR. EnaGIS was submitted to OSEAS 2026 (Assessment and Mapping of Productive Uses of Energy); "
+               "it is reused here by its authors, who are part of this team.")
+
 # ------------------------------------------------------------------ 3. Rainfall watch
 with tab3:
     rain = D["rain"]
@@ -452,6 +559,7 @@ with tab4:
 ### Where the numbers come from
 - **NISR Seasonal Agricultural Survey 2026**, Season A and B: area, harvested area, yield, production, improved-seed use, by district and crop.
 - **CHIRPS v3** monthly rainfall (Climate Hazards Center, UC Santa Barbara) and **geoBoundaries** district boundaries.
+- **EnaGIS** (Team Dynamis, MIT licence): candidate storage, cooling, milling and drying sites and estimated energy needs for all 30 districts, built on OpenStreetMap and Overture Maps (ODbL), WorldPop and Open-Meteo (CC BY 4.0). Shown in the Infrastructure tab with its own evidence labels; Musaruro does not recompute it.
 - Every figure traces to an NISR table; nothing is imputed. See `docs/DATA_NOTES.md`.
 
 ### How the priority score works
@@ -465,6 +573,7 @@ you can change the weights.
 - District estimates come from small samples (20–68 survey segments per district): signals, not exact values.
 - Rainfall is **not** in the priority score. We tested district rainfall against district yields and found no consistent link.
 - Output at stake is a comparison with the national average, not a forecast.
+- EnaGIS sites are candidates to check, not confirmed facilities; its kWh/day figures are estimates, and its production inputs are 2024-based estimates. Yields, rainfall and infrastructure are shown side by side, never combined into one score or used to explain each other.
 """)
     st.subheader("Data quality issues found in the NISR tables")
     st.dataframe(D["dq"], hide_index=True, width="stretch")

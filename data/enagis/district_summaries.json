@@ -1,0 +1,3242 @@
+{
+ "Nyarugenge": {
+  "district": "Nyarugenge",
+  "cells": 133,
+  "positives": 2,
+  "documented_processing": 2,
+  "buildings": 203904,
+  "roofs": true,
+  "settlements": 2,
+  "population": 360165,
+  "area_km2": 133,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (15 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (43 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (43 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (43 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 13,
+    "documented": 12,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 0.9736335840210183,
+    "top3": [
+     "COMO BUSINESS CENTER (Market)",
+     "Market near Nyarumana (-2.029, 30.025) (Market)",
+     "Market near Nyarumana (-2.051, 30.055) (Market)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 7,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 8,
+    "documented": 7,
+    "ranked": 8,
+    "robust": 0,
+    "coverage": "well",
+    "top_kwh": 61.68396245108058,
+    "top3": [
+     "COMO BUSINESS CENTER (Market)",
+     "Umutima Cooperative (Cooperative)",
+     "Market near Nyarumana (-2.029, 30.025) (Market)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 7,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 9,
+    "documented": 8,
+    "ranked": 9,
+    "robust": 1,
+    "coverage": "well",
+    "top_kwh": 7.534051437744277,
+    "top3": [
+     "COMO BUSINESS CENTER (Market)",
+     "Market near Nyarumana (-2.029, 30.025) (Market)",
+     "Market near Nyarumana (-2.051, 30.055) (Market)"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 7,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 9,
+    "documented": 8,
+    "ranked": 9,
+    "robust": 0,
+    "coverage": "well",
+    "top_kwh": 2.455365879396985,
+    "top3": [
+     "COMO BUSINESS CENTER (Market)",
+     "Market near Nyarumana (-2.029, 30.025) (Market)",
+     "Umutima Cooperative (Cooperative)"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 7,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 12,
+  "settlement_points": 1,
+  "seconds": 4,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (15 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (43 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (43 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (43 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Gasabo": {
+  "district": "Gasabo",
+  "cells": 431,
+  "positives": 6,
+  "documented_processing": 9,
+  "buildings": 484286,
+  "roofs": true,
+  "settlements": 12,
+  "population": 889650,
+  "area_km2": 434,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (34 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (102 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (102 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (102 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 24,
+    "documented": 16,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 12.59975793666515,
+    "top3": [
+     "Gatsata / Karuruma (Town centre (no facility mapped))",
+     "Bumbogo (Village centre (no facility mapped))",
+     "Kabuga (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 11,
+     "documented_in_top": 10,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 19,
+    "documented": 11,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 183.39179060395455,
+    "top3": [
+     "Bumbogo (Village centre (no facility mapped))",
+     "Gatsata / Karuruma (Town centre (no facility mapped))",
+     "Kabuga (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 11,
+     "documented_in_top": 10,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 22,
+    "documented": 14,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 39.722438465576275,
+    "top3": [
+     "Gatsata / Karuruma (Town centre (no facility mapped))",
+     "Kabuga (Town centre (no facility mapped))",
+     "Bumbogo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 11,
+     "documented_in_top": 10,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 22,
+    "documented": 14,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 12.914284957288475,
+    "top3": [
+     "Gatsata / Karuruma (Town centre (no facility mapped))",
+     "Bumbogo (Village centre (no facility mapped))",
+     "Kabuga (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 11,
+     "documented_in_top": 10,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 17,
+  "settlement_points": 8,
+  "seconds": 9,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (34 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (102 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (102 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (102 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Kicukiro": {
+  "district": "Kicukiro",
+  "cells": 172,
+  "positives": 7,
+  "documented_processing": 11,
+  "buildings": 292133,
+  "roofs": true,
+  "settlements": 5,
+  "population": 443792,
+  "area_km2": 171,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (15 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (45 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (45 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (45 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 21,
+    "documented": 18,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 0.30598378025796996,
+    "top3": [
+     "Gahanga Market (Market)",
+     "Warehouse near Masaka (Warehouse / store)",
+     "Masaka (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 14,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 15,
+    "documented": 12,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 72.7849403275492,
+    "top3": [
+     "Masaka (Town centre (no facility mapped))",
+     "Amahoro Ava Hejuru Cooperative (Cooperative)",
+     "Gahanga Market (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 14,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 21,
+    "documented": 18,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 10.891007391575203,
+    "top3": [
+     "Gahanga Market (Market)",
+     "Masaka (Town centre (no facility mapped))",
+     "Fruits shop (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 14,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 21,
+    "documented": 18,
+    "ranked": 10,
+    "robust": 6,
+    "coverage": "well",
+    "top_kwh": 4.143637624575224,
+    "top3": [
+     "Warehouse near Masaka (Warehouse / store)",
+     "Masaka (Town centre (no facility mapped))",
+     "Amahoro Ava Hejuru Cooperative (Cooperative)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 14,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 19,
+  "settlement_points": 3,
+  "seconds": 5,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (15 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (45 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (45 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (45 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Nyanza": {
+  "district": "Nyanza",
+  "cells": 671,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 237310,
+  "roofs": true,
+  "settlements": 17,
+  "population": 431286,
+  "area_km2": 669,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (46 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (156 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (156 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (156 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 15,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 12.023809372366689,
+    "top3": [
+     "Kigoma (Town centre (no facility mapped))",
+     "Nyanza (east) (Village centre (no facility mapped))",
+     "Nyanza (west) (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 15,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 158.61687713983412,
+    "top3": [
+     "Kigoma (Town centre (no facility mapped))",
+     "Nyanza (east) (Village centre (no facility mapped))",
+     "Nyanza (west) (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 15,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 145.69340290879862,
+    "top3": [
+     "Kigoma (Town centre (no facility mapped))",
+     "Nyanza (west) (Town centre (no facility mapped))",
+     "Nyanza (east) (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 15,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 49.08031470149131,
+    "top3": [
+     "Kigoma (Town centre (no facility mapped))",
+     "Nyanza (east) (Village centre (no facility mapped))",
+     "Nyanza (west) (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 1,
+  "settlement_points": 14,
+  "seconds": 9,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (46 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (156 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (156 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (156 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Gisagara": {
+  "district": "Gisagara",
+  "cells": 675,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 183061,
+  "roofs": true,
+  "settlements": 8,
+  "population": 382428,
+  "area_km2": 673,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (46 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (149 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (149 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (149 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 8,
+    "documented": 2,
+    "ranked": 8,
+    "robust": 1,
+    "coverage": "well",
+    "top_kwh": 5.541731477264634,
+    "top3": [
+     "Market near Remera Muganza (Market)",
+     "Village near -2.516, 29.872 (Village centre (no facility mapped))",
+     "Rusagara (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 7,
+    "documented": 1,
+    "ranked": 7,
+    "robust": 0,
+    "coverage": "well",
+    "top_kwh": 138.218305567662,
+    "top3": [
+     "Village near -2.516, 29.872 (Village centre (no facility mapped))",
+     "Rusagara (Village centre (no facility mapped))",
+     "Ntobo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 8,
+    "documented": 2,
+    "ranked": 8,
+    "robust": 1,
+    "coverage": "well",
+    "top_kwh": 141.0643891119571,
+    "top3": [
+     "Market near Remera Muganza (Market)",
+     "Village near -2.516, 29.872 (Village centre (no facility mapped))",
+     "Rusagara (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 8,
+    "documented": 2,
+    "ranked": 8,
+    "robust": 1,
+    "coverage": "well",
+    "top_kwh": 46.830715436329335,
+    "top3": [
+     "Market near Remera Muganza (Market)",
+     "Village near -2.516, 29.872 (Village centre (no facility mapped))",
+     "Rusagara (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 2,
+  "settlement_points": 6,
+  "seconds": 4,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (46 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (149 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (149 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (149 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Nyaruguru": {
+  "district": "Nyaruguru",
+  "cells": 1020,
+  "positives": 2,
+  "documented_processing": 2,
+  "buildings": 147519,
+  "roofs": true,
+  "settlements": 13,
+  "population": 365049,
+  "area_km2": 1011,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (63 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (210 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (210 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (210 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 15,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 73.22063295675297,
+    "top3": [
+     "Kibeho (Village centre (no facility mapped))",
+     "New center market (Market)",
+     "Remera (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 3,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 14,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 127.79877176333052,
+    "top3": [
+     "Kibeho (Village centre (no facility mapped))",
+     "Remera (Village centre (no facility mapped))",
+     "Maraba (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 3,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 15,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 89.37701782862766,
+    "top3": [
+     "Kibeho (Village centre (no facility mapped))",
+     "New center market (Market)",
+     "Remera (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 3,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 15,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 30.59278508138285,
+    "top3": [
+     "Kibeho (Village centre (no facility mapped))",
+     "Remera (Village centre (no facility mapped))",
+     "Maraba (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 3,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 5,
+  "settlement_points": 11,
+  "seconds": 4,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (63 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (210 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (210 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (210 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Huye": {
+  "district": "Huye",
+  "cells": 573,
+  "positives": 5,
+  "documented_processing": 6,
+  "buildings": 224708,
+  "roofs": true,
+  "settlements": 20,
+  "population": 390216,
+  "area_km2": 574,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (41 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (130 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (130 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (130 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 20,
+    "documented": 7,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 19.430104866075766,
+    "top3": [
+     "cooperative (Cooperative)",
+     "Rugogwe (Market)",
+     "Cyizi Market (Market)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 10,
+     "documented_in_top": 7,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 20,
+    "documented": 7,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 128.56263098739296,
+    "top3": [
+     "cooperative (Cooperative)",
+     "Mukina (Village centre (no facility mapped))",
+     "Rugogwe (Market)"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 10,
+     "documented_in_top": 7,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 20,
+    "documented": 7,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 105.02759022158939,
+    "top3": [
+     "Rugogwe (Market)",
+     "Cyizi Market (Market)",
+     "cooperative (Cooperative)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 10,
+     "documented_in_top": 7,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 20,
+    "documented": 7,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 36.38920534721131,
+    "top3": [
+     "cooperative (Cooperative)",
+     "Rugogwe (Market)",
+     "Cyizi Market (Market)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 10,
+     "documented_in_top": 7,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 13,
+  "settlement_points": 13,
+  "seconds": 4,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (41 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (130 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (130 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (130 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Nyamagabe": {
+  "district": "Nyamagabe",
+  "cells": 1064,
+  "positives": 1,
+  "documented_processing": 2,
+  "buildings": 175650,
+  "roofs": true,
+  "settlements": 11,
+  "population": 405818,
+  "area_km2": 1070,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (65 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (221 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (221 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (221 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 17,
+    "documented": 9,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 184.05250141965465,
+    "top3": [
+     "Nyamagabe Market (Market)",
+     "Market near -2.279, 29.573 (Market)",
+     "Market near -2.327, 29.531 (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 9,
+     "documented_in_top": 8,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 17,
+    "documented": 9,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 115.92278456775813,
+    "top3": [
+     "Mushubi (Village centre (no facility mapped))",
+     "Nyamagabe Market (Market)",
+     "Musebeya (north) (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 9,
+     "documented_in_top": 8,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 17,
+    "documented": 9,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 119.42938732331812,
+    "top3": [
+     "Nyamagabe Market (Market)",
+     "Market near -2.279, 29.573 (Market)",
+     "Market near -2.327, 29.531 (Market)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 9,
+     "documented_in_top": 8,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 17,
+    "documented": 9,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 36.4398254534981,
+    "top3": [
+     "Nyamagabe Market (Market)",
+     "Mushubi (Village centre (no facility mapped))",
+     "Market near -2.279, 29.573 (Market)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 9,
+     "documented_in_top": 8,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 10,
+  "settlement_points": 8,
+  "seconds": 4,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (65 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (221 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (221 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (221 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Ruhango": {
+  "district": "Ruhango",
+  "cells": 629,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 224739,
+  "roofs": true,
+  "settlements": 14,
+  "population": 401725,
+  "area_km2": 627,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (41 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (138 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (138 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (138 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 13,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 2.6542793454373936,
+    "top3": [
+     "Buhanda (Town centre (no facility mapped))",
+     "Kinazi (Village centre (no facility mapped))",
+     "Ruzigo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 10,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 13,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 143.35310114597,
+    "top3": [
+     "Kinazi (Village centre (no facility mapped))",
+     "Buhanda (Town centre (no facility mapped))",
+     "Ruzigo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 10,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 13,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 74.2142623339348,
+    "top3": [
+     "Buhanda (Town centre (no facility mapped))",
+     "Kinazi (Village centre (no facility mapped))",
+     "Ruzigo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 10,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 13,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 25.585370850994504,
+    "top3": [
+     "Buhanda (Town centre (no facility mapped))",
+     "Kinazi (Village centre (no facility mapped))",
+     "Ruzigo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 10,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 1,
+  "settlement_points": 13,
+  "seconds": 5,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (41 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (138 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (138 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (138 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Muhanga": {
+  "district": "Muhanga",
+  "cells": 654,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 219983,
+  "roofs": true,
+  "settlements": 22,
+  "population": 353828,
+  "area_km2": 651,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (46 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (144 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (144 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (144 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 21,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 8.795299511802934,
+    "top3": [
+     "Buringa Market (Market)",
+     "Niyamabuye (Village centre (no facility mapped))",
+     "Rugendabari (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 21,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 110.86656643909674,
+    "top3": [
+     "Niyamabuye (Village centre (no facility mapped))",
+     "Buringa Market (Market)",
+     "Nyamabuye (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 21,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 36.217845953776575,
+    "top3": [
+     "Buringa Market (Market)",
+     "Niyamabuye (Village centre (no facility mapped))",
+     "Rugendabari (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 21,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 12.002014873630497,
+    "top3": [
+     "Buringa Market (Market)",
+     "Niyamabuye (Village centre (no facility mapped))",
+     "Rugendabari (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 1,
+  "settlement_points": 20,
+  "seconds": 6,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (46 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (144 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (144 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (144 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Kamonyi": {
+  "district": "Kamonyi",
+  "cells": 650,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 260965,
+  "roofs": true,
+  "settlements": 14,
+  "population": 424545,
+  "area_km2": 656,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (45 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (143 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (143 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (143 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 13,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 9.465711488790461,
+    "top3": [
+     "Kamonyi (Village centre (no facility mapped))",
+     "Mugina (Village centre (no facility mapped))",
+     "Kamiranzovu (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 13,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 147.15474842560465,
+    "top3": [
+     "Kamonyi (Village centre (no facility mapped))",
+     "Mugina (Village centre (no facility mapped))",
+     "Kamiranzovu (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 13,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 87.29434498579347,
+    "top3": [
+     "Kamonyi (Village centre (no facility mapped))",
+     "Mugina (Village centre (no facility mapped))",
+     "Kamiranzovu (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 13,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 31.1823812566957,
+    "top3": [
+     "Kamonyi (Village centre (no facility mapped))",
+     "Mugina (Village centre (no facility mapped))",
+     "Kamiranzovu (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 0,
+  "settlement_points": 13,
+  "seconds": 7,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (45 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (143 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (143 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (143 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Karongi": {
+  "district": "Karongi",
+  "cells": 982,
+  "positives": 2,
+  "documented_processing": 2,
+  "buildings": 198356,
+  "roofs": true,
+  "settlements": 19,
+  "population": 377935,
+  "area_km2": 987,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (61 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (206 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (206 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (206 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 16,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 18.747651076754693,
+    "top3": [
+     "Gisyita (Village centre (no facility mapped))",
+     "Karongi Market (Market)",
+     "Kirinda (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 16,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 114.44604737091534,
+    "top3": [
+     "Gisyita (Village centre (no facility mapped))",
+     "Kirinda (Village centre (no facility mapped))",
+     "Gitaka (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 16,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 90.71380973917336,
+    "top3": [
+     "Gisyita (Village centre (no facility mapped))",
+     "Kirinda (Village centre (no facility mapped))",
+     "Karongi Market (Market)"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 16,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 31.578546444717272,
+    "top3": [
+     "Gisyita (Village centre (no facility mapped))",
+     "Kirinda (Village centre (no facility mapped))",
+     "Gitaka (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 4,
+  "settlement_points": 14,
+  "seconds": 7,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (61 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (206 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (206 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (206 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Rutsiro": {
+  "district": "Rutsiro",
+  "cells": 1151,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 178272,
+  "roofs": true,
+  "settlements": 26,
+  "population": 389743,
+  "area_km2": 1155,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (71 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (242 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (242 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (242 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 23,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "partly",
+    "top_kwh": 110.01977245312038,
+    "top3": [
+     "Mucyakabiri (Village centre (no facility mapped))",
+     "Gisiza Market (Market)",
+     "Gakeri (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 5,
+     "documented_in_top": 5,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 23,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "partly",
+    "top_kwh": 105.2968597816234,
+    "top3": [
+     "Mucyakabiri (Village centre (no facility mapped))",
+     "Gakeri (Village centre (no facility mapped))",
+     "Mungoti Center (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 5,
+     "documented_in_top": 5,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 23,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "partly",
+    "top_kwh": 63.73950685641152,
+    "top3": [
+     "Mucyakabiri (Village centre (no facility mapped))",
+     "Gisiza Market (Market)",
+     "Gakeri (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 5,
+     "documented_in_top": 5,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 23,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 6,
+    "coverage": "partly",
+    "top_kwh": 21.681771121404193,
+    "top3": [
+     "Mucyakabiri (Village centre (no facility mapped))",
+     "Gisiza Market (Market)",
+     "Gakeri (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 5,
+     "documented_in_top": 5,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 5,
+  "settlement_points": 19,
+  "seconds": 5,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (71 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (242 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (242 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (242 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Rubavu": {
+  "district": "Rubavu",
+  "cells": 400,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 269514,
+  "roofs": true,
+  "settlements": 26,
+  "population": 567238,
+  "area_km2": 396,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (28 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (94 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (94 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (94 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 23,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 6,
+    "coverage": "well",
+    "top_kwh": 314.62780327603826,
+    "top3": [
+     "Mahoko Market (Market)",
+     "Rubavu Market (Market)",
+     "Village near Bungeshi Mukuru (-1.542, 29.354) (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 23,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 109.03477345597831,
+    "top3": [
+     "Village near Bungeshi Mukuru (-1.542, 29.354) (Village centre (no facility mapped))",
+     "Mahoko Market (Market)",
+     "Kabinzi (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 23,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 6,
+    "coverage": "well",
+    "top_kwh": 28.86333610459199,
+    "top3": [
+     "Mahoko Market (Market)",
+     "Village near Bungeshi Mukuru (-1.542, 29.354) (Village centre (no facility mapped))",
+     "Rubavu Market (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 23,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 6,
+    "coverage": "well",
+    "top_kwh": 9.144998624797184,
+    "top3": [
+     "Mahoko Market (Market)",
+     "Village near Bungeshi Mukuru (-1.542, 29.354) (Village centre (no facility mapped))",
+     "Rubavu Market (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 4,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 4,
+  "settlement_points": 20,
+  "seconds": 5,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (28 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (94 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (94 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (94 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Nyabihu": {
+  "district": "Nyabihu",
+  "cells": 534,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 149287,
+  "roofs": true,
+  "settlements": 447,
+  "population": 319239,
+  "area_km2": 528,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (35 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (113 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (113 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (113 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 310,
+    "documented": 5,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 292.3308309543989,
+    "top3": [
+     "Kora Market (Market)",
+     "Jenda Centre (Market)",
+     "Nyabihu (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 6,
+     "documented_in_top": 5,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 310,
+    "documented": 5,
+    "ranked": 10,
+    "robust": 6,
+    "coverage": "well",
+    "top_kwh": 42.510796651009386,
+    "top3": [
+     "Kora Market (Market)",
+     "Nyabihu (Village centre (no facility mapped))",
+     "Bigogwe (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 6,
+     "documented_in_top": 5,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 310,
+    "documented": 5,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 30.443449867887804,
+    "top3": [
+     "Kora Market (Market)",
+     "Jenda Centre (Market)",
+     "Nyabihu (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 6,
+     "documented_in_top": 5,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 310,
+    "documented": 5,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 9.064061307581643,
+    "top3": [
+     "Kora Market (Market)",
+     "Jenda Centre (Market)",
+     "Nyabihu (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 6,
+     "documented_in_top": 5,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 6,
+  "settlement_points": 305,
+  "seconds": 4,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (35 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (113 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (113 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (113 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Ngororero": {
+  "district": "Ngororero",
+  "cells": 687,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 228150,
+  "roofs": true,
+  "settlements": 44,
+  "population": 378791,
+  "area_km2": 677,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (49 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (148 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (148 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (148 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 40,
+    "documented": 5,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 72.09748293028467,
+    "top3": [
+     "Mwibereshi Kageyo Centre (Market)",
+     "Market near Cyome Market (Market)",
+     "Ngororero Market (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 6,
+     "documented_in_top": 6,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 40,
+    "documented": 5,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 97.7021721485573,
+    "top3": [
+     "Mwibereshi Kageyo Centre (Market)",
+     "Market near Cyome Market (Market)",
+     "Birambo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 6,
+     "documented_in_top": 6,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 40,
+    "documented": 5,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 67.50400817536564,
+    "top3": [
+     "Mwibereshi Kageyo Centre (Market)",
+     "Market near Cyome Market (Market)",
+     "Ngororero Market (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 6,
+     "documented_in_top": 6,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 40,
+    "documented": 5,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 19.821526182060307,
+    "top3": [
+     "Mwibereshi Kageyo Centre (Market)",
+     "Market near Cyome Market (Market)",
+     "Birambo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 6,
+     "documented_in_top": 6,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 6,
+  "settlement_points": 35,
+  "seconds": 6,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (49 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (148 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (148 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (148 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Rusizi": {
+  "district": "Rusizi",
+  "cells": 963,
+  "positives": 3,
+  "documented_processing": 3,
+  "buildings": 290124,
+  "roofs": true,
+  "settlements": 171,
+  "population": 466978,
+  "area_km2": 958,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (69 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (216 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (216 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (216 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 159,
+    "documented": 10,
+    "ranked": 10,
+    "robust": 5,
+    "coverage": "well",
+    "top_kwh": 2.911686982164196,
+    "top3": [
+     "Nyamigina (east) (Village centre (no facility mapped))",
+     "Nyakabuye (Town centre (no facility mapped))",
+     "Kadashya (Market)"
+    ],
+    "baseline_overlap": 4,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 12,
+     "documented_in_top": 11,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 159,
+    "documented": 10,
+    "ranked": 10,
+    "robust": 4,
+    "coverage": "well",
+    "top_kwh": 49.42266640005978,
+    "top3": [
+     "Nyamigina (east) (Village centre (no facility mapped))",
+     "Nyakabuye (Town centre (no facility mapped))",
+     "Town near -2.404, 28.901 (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 5,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 12,
+     "documented_in_top": 11,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 160,
+    "documented": 11,
+    "ranked": 10,
+    "robust": 5,
+    "coverage": "well",
+    "top_kwh": 48.361205028947815,
+    "top3": [
+     "Nyamigina (east) (Village centre (no facility mapped))",
+     "Nyakabuye (Town centre (no facility mapped))",
+     "Kadashya (Market)"
+    ],
+    "baseline_overlap": 5,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 12,
+     "documented_in_top": 11,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 160,
+    "documented": 11,
+    "ranked": 10,
+    "robust": 4,
+    "coverage": "well",
+    "top_kwh": 15.557376435681492,
+    "top3": [
+     "Nyamigina (east) (Village centre (no facility mapped))",
+     "Nyakabuye (Town centre (no facility mapped))",
+     "Kadashya (Market)"
+    ],
+    "baseline_overlap": 5,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 12,
+     "documented_in_top": 11,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 12,
+  "settlement_points": 149,
+  "seconds": 8,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (69 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (216 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (216 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (216 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Nyamasheke": {
+  "district": "Nyamasheke",
+  "cells": 1189,
+  "positives": 3,
+  "documented_processing": 3,
+  "buildings": 207972,
+  "roofs": true,
+  "settlements": 30,
+  "population": 436853,
+  "area_km2": 1191,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (70 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (244 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (244 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (244 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 32,
+    "documented": 8,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "partly",
+    "top_kwh": 82.5424803483746,
+    "top3": [
+     "Tyazo Market (Market)",
+     "Kaderaho (Village centre (no facility mapped))",
+     "Kirambo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 11,
+     "documented_in_top": 7,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 32,
+    "documented": 8,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 125.85978181446916,
+    "top3": [
+     "Kaderaho (Village centre (no facility mapped))",
+     "Kirambo (Village centre (no facility mapped))",
+     "Bushenge Market (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 11,
+     "documented_in_top": 7,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 32,
+    "documented": 8,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "partly",
+    "top_kwh": 80.8244940076597,
+    "top3": [
+     "Tyazo Market (Market)",
+     "Kaderaho (Village centre (no facility mapped))",
+     "Kirambo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 11,
+     "documented_in_top": 7,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 32,
+    "documented": 8,
+    "ranked": 10,
+    "robust": 6,
+    "coverage": "partly",
+    "top_kwh": 27.04581650357767,
+    "top3": [
+     "Tyazo Market (Market)",
+     "Kaderaho (Village centre (no facility mapped))",
+     "Kirambo (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 11,
+     "documented_in_top": 7,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 11,
+  "settlement_points": 24,
+  "seconds": 5,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (70 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (244 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (244 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (244 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Rulindo": {
+  "district": "Rulindo",
+  "cells": 560,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 246075,
+  "roofs": true,
+  "settlements": 11,
+  "population": 321375,
+  "area_km2": 563,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (40 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (131 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (131 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (131 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 10,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 0,
+    "coverage": "well",
+    "top_kwh": 43.95078898075316,
+    "top3": [
+     "Rusine (Town centre (no facility mapped))",
+     "Base (Town centre (no facility mapped))",
+     "Tare (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 10,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 10,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 0,
+    "coverage": "well",
+    "top_kwh": 120.0766096177437,
+    "top3": [
+     "Rusine (Town centre (no facility mapped))",
+     "Tare (Village centre (no facility mapped))",
+     "Base (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 10,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 10,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 0,
+    "coverage": "well",
+    "top_kwh": 99.5968818722511,
+    "top3": [
+     "Rusine (Town centre (no facility mapped))",
+     "Base (Town centre (no facility mapped))",
+     "Tare (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 10,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 10,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 0,
+    "coverage": "well",
+    "top_kwh": 33.020272690923626,
+    "top3": [
+     "Rusine (Town centre (no facility mapped))",
+     "Base (Town centre (no facility mapped))",
+     "Tare (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 10,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 2,
+  "settlement_points": 9,
+  "seconds": 6,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (40 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (131 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (131 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (131 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Gakenke": {
+  "district": "Gakenke",
+  "cells": 712,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 244619,
+  "roofs": true,
+  "settlements": 425,
+  "population": 353494,
+  "area_km2": 708,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (45 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (154 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (154 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (154 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 296,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 28.80587601195457,
+    "top3": [
+     "Nemba (Town centre (no facility mapped))",
+     "Musasa (Town centre (no facility mapped))",
+     "Ruganda (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 296,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 78.49025170998151,
+    "top3": [
+     "Nemba (Town centre (no facility mapped))",
+     "Kivuruga (Village centre (no facility mapped))",
+     "Musasa (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 296,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 108.96108788904948,
+    "top3": [
+     "Nemba (Town centre (no facility mapped))",
+     "Musasa (Town centre (no facility mapped))",
+     "Ruganda (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 296,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 36.63371583900003,
+    "top3": [
+     "Nemba (Town centre (no facility mapped))",
+     "Musasa (Town centre (no facility mapped))",
+     "Ruganda (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 2,
+  "settlement_points": 294,
+  "seconds": 7,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (45 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (154 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (154 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (154 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Musanze": {
+  "district": "Musanze",
+  "cells": 533,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 224581,
+  "roofs": true,
+  "settlements": 152,
+  "population": 438753,
+  "area_km2": 532,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (38 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (115 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (115 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (115 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 125,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 151.75524011248717,
+    "top3": [
+     "Kinigi (Town centre (no facility mapped))",
+     "Musanze Agricultural products markets (Market)",
+     "Town near Busogo (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 124,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 81.4824937813885,
+    "top3": [
+     "Kinigi (Town centre (no facility mapped))",
+     "Town near Busogo (Town centre (no facility mapped))",
+     "Kimonyi (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 125,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 61.6483135847042,
+    "top3": [
+     "Kinigi (Town centre (no facility mapped))",
+     "Town near Busogo (Town centre (no facility mapped))",
+     "Musanze Agricultural products markets (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 125,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "well",
+    "top_kwh": 20.51913673008801,
+    "top3": [
+     "Kinigi (Town centre (no facility mapped))",
+     "Town near Busogo (Town centre (no facility mapped))",
+     "Musanze Agricultural products markets (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 4,
+  "settlement_points": 121,
+  "seconds": 5,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (38 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (115 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (115 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (115 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Burera": {
+  "district": "Burera",
+  "cells": 641,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 221900,
+  "roofs": true,
+  "settlements": 62,
+  "population": 359155,
+  "area_km2": 642,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (46 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (147 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (147 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (147 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 57,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 151.73114553959542,
+    "top3": [
+     "Village near -1.492, 29.834 (Village centre (no facility mapped))",
+     "Kinoni (Village centre (no facility mapped))",
+     "Village near Cyanika (-1.369, 29.754) (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 57,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 87.31157184466194,
+    "top3": [
+     "Village near -1.492, 29.834 (Village centre (no facility mapped))",
+     "Kinoni (Village centre (no facility mapped))",
+     "Village near Cyanika (-1.369, 29.754) (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 57,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 110.72207378026921,
+    "top3": [
+     "Village near -1.492, 29.834 (Village centre (no facility mapped))",
+     "Kinoni (Village centre (no facility mapped))",
+     "Village near Cyanika (-1.369, 29.754) (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 57,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 39.185433370627415,
+    "top3": [
+     "Village near -1.492, 29.834 (Village centre (no facility mapped))",
+     "Kinoni (Village centre (no facility mapped))",
+     "Village near Cyanika (-1.369, 29.754) (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 1,
+  "settlement_points": 56,
+  "seconds": 5,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (46 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (147 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (147 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (147 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Gicumbi": {
+  "district": "Gicumbi",
+  "cells": 841,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 303036,
+  "roofs": true,
+  "settlements": 18,
+  "population": 464300,
+  "area_km2": 838,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (57 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (191 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (191 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (191 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 19,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 185.57399788006956,
+    "top3": [
+     "Rukomo (Town centre (no facility mapped))",
+     "Miyove Market (Market)",
+     "Gaseke (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 19,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 147.46720978482227,
+    "top3": [
+     "Rukomo (Town centre (no facility mapped))",
+     "Mu Maya (Village centre (no facility mapped))",
+     "Gaseke (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 19,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 125.26201981548819,
+    "top3": [
+     "Rukomo (Town centre (no facility mapped))",
+     "Gaseke (Town centre (no facility mapped))",
+     "Miyove Market (Market)"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 19,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 39.39632949753133,
+    "top3": [
+     "Rukomo (Town centre (no facility mapped))",
+     "Gaseke (Town centre (no facility mapped))",
+     "Mu Maya (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 2,
+  "settlement_points": 17,
+  "seconds": 8,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (57 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (191 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (191 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (191 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Rwamagana": {
+  "district": "Rwamagana",
+  "cells": 672,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 308361,
+  "roofs": true,
+  "settlements": 13,
+  "population": 410729,
+  "area_km2": 675,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (44 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (145 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (145 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (145 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 13,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 43.83079478300784,
+    "top3": [
+     "Nzige Market Place (Market)",
+     "Nstinda (Town centre (no facility mapped))",
+     "Nyagasambu (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 13,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 121.28306680003965,
+    "top3": [
+     "Nstinda (Town centre (no facility mapped))",
+     "Nyagasambu (Town centre (no facility mapped))",
+     "Nzige Market Place (Market)"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 13,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 178.20322066090253,
+    "top3": [
+     "Nzige Market Place (Market)",
+     "Nstinda (Town centre (no facility mapped))",
+     "Nyagasambu (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 13,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "well",
+    "top_kwh": 55.46948894181498,
+    "top3": [
+     "Nzige Market Place (Market)",
+     "Nstinda (Town centre (no facility mapped))",
+     "Nyagasambu (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 1,
+     "documented_in_top": 1,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 1,
+  "settlement_points": 12,
+  "seconds": 7,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (44 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (145 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (145 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (145 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Nyagatare": {
+  "district": "Nyagatare",
+  "cells": 1910,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 313303,
+  "roofs": true,
+  "settlements": 6,
+  "population": 820245,
+  "area_km2": 1910,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (112 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (385 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (385 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (385 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 6,
+    "documented": 2,
+    "ranked": 6,
+    "robust": 2,
+    "coverage": "partly",
+    "top_kwh": 40.71484099261345,
+    "top3": [
+     "RUKOMO Market (Market)",
+     "Nyagatare (Town centre (no facility mapped))",
+     "Matimba Market (Market)"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 6,
+    "documented": 2,
+    "ranked": 6,
+    "robust": 3,
+    "coverage": "partly",
+    "top_kwh": 230.4092279537846,
+    "top3": [
+     "Nyagatare (Town centre (no facility mapped))",
+     "Mimuli (Village centre (no facility mapped))",
+     "RUKOMO Market (Market)"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 6,
+    "documented": 2,
+    "ranked": 6,
+    "robust": 2,
+    "coverage": "partly",
+    "top_kwh": 1368.136949389584,
+    "top3": [
+     "RUKOMO Market (Market)",
+     "Nyagatare (Town centre (no facility mapped))",
+     "Matimba Market (Market)"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 6,
+    "documented": 2,
+    "ranked": 6,
+    "robust": 2,
+    "coverage": "partly",
+    "top_kwh": 414.12266377716367,
+    "top3": [
+     "Nyagatare (Town centre (no facility mapped))",
+     "RUKOMO Market (Market)",
+     "Mimuli (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 2,
+  "settlement_points": 4,
+  "seconds": 12,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (112 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (385 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (385 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (385 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Gatsibo": {
+  "district": "Gatsibo",
+  "cells": 1575,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 271996,
+  "roofs": true,
+  "settlements": 12,
+  "population": 647172,
+  "area_km2": 1575,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (96 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (330 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (330 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (330 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 12,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 88.54565404926761,
+    "top3": [
+     "Ngarama (Town centre (no facility mapped))",
+     "Ndatemwa (Village centre (no facility mapped))",
+     "Nyakayaga (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 12,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "partly",
+    "top_kwh": 225.43333713765983,
+    "top3": [
+     "Ndatemwa (Village centre (no facility mapped))",
+     "Nyakayaga (Village centre (no facility mapped))",
+     "Gakenke (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 12,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 460.8445214682018,
+    "top3": [
+     "Ngarama (Town centre (no facility mapped))",
+     "Ndatemwa (Village centre (no facility mapped))",
+     "Nyakayaga (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 12,
+    "documented": 0,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 162.2685984459434,
+    "top3": [
+     "Ngarama (Town centre (no facility mapped))",
+     "Ndatemwa (Village centre (no facility mapped))",
+     "Nyakayaga (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 0,
+  "settlement_points": 12,
+  "seconds": 7,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (96 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (330 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (330 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (330 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Kayonza": {
+  "district": "Kayonza",
+  "cells": 1944,
+  "positives": 3,
+  "documented_processing": 3,
+  "buildings": 229702,
+  "roofs": true,
+  "settlements": 15,
+  "population": 523834,
+  "area_km2": 1941,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (107 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (379 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (379 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (379 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 16,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "partly",
+    "top_kwh": 51.633713557101274,
+    "top3": [
+     "Ruramira (Town centre (no facility mapped))",
+     "Mukoyoyo (Village centre (no facility mapped))",
+     "Kabarondo (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 9,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 5,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 16,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "partly",
+    "top_kwh": 159.23114942601464,
+    "top3": [
+     "Mukoyoyo (Village centre (no facility mapped))",
+     "Ruramira (Town centre (no facility mapped))",
+     "Kabarondo (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 5,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 17,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 381.4441168386722,
+    "top3": [
+     "Milling Machine (Mill)",
+     "Ruramira (Town centre (no facility mapped))",
+     "Kabarondo (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 5,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 17,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 122.47051811722912,
+    "top3": [
+     "Milling Machine (Mill)",
+     "Ruramira (Town centre (no facility mapped))",
+     "Kabarondo (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 5,
+     "documented_in_top": 4,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 6,
+  "settlement_points": 13,
+  "seconds": 7,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (107 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (379 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (379 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (379 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Kirehe": {
+  "district": "Kirehe",
+  "cells": 1167,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 219030,
+  "roofs": true,
+  "settlements": 14,
+  "population": 462522,
+  "area_km2": 1170,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (71 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (242 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (242 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (242 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 16,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 40.46935536983032,
+    "top3": [
+     "Kamombo (Village centre (no facility mapped))",
+     "Cooperative Kakera (Cooperative)",
+     "Nyakarambi (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 15,
+    "documented": 1,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 140.24127015877394,
+    "top3": [
+     "Kamombo (Village centre (no facility mapped))",
+     "Nyakarambi (Town centre (no facility mapped))",
+     "Cooperative Kakera (Cooperative)"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 16,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 10,
+    "coverage": "partly",
+    "top_kwh": 551.1630878212743,
+    "top3": [
+     "Jiangdong Milling Machine (Mill)",
+     "Nyakarambi (Town centre (no facility mapped))",
+     "Rwabutazi (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 16,
+    "documented": 2,
+    "ranked": 10,
+    "robust": 9,
+    "coverage": "partly",
+    "top_kwh": 191.9817923815909,
+    "top3": [
+     "Jiangdong Milling Machine (Mill)",
+     "Cooperative Kakera (Cooperative)",
+     "Nyakarambi (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 8,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 2,
+     "documented_in_top": 2,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 3,
+  "settlement_points": 14,
+  "seconds": 7,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (71 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (242 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (242 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (242 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Ngoma": {
+  "district": "Ngoma",
+  "cells": 868,
+  "positives": 0,
+  "documented_processing": 0,
+  "buildings": 206159,
+  "roofs": true,
+  "settlements": 6,
+  "population": 452495,
+  "area_km2": 869,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (57 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (187 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (187 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (187 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 6,
+    "documented": 0,
+    "ranked": 6,
+    "robust": 1,
+    "coverage": "well",
+    "top_kwh": 66.71286550185721,
+    "top3": [
+     "Sake (Town centre (no facility mapped))",
+     "Ngoma (Town centre (no facility mapped))",
+     "Kibaya (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 6,
+    "documented": 0,
+    "ranked": 6,
+    "robust": 1,
+    "coverage": "well",
+    "top_kwh": 167.04435868502617,
+    "top3": [
+     "Sake (Town centre (no facility mapped))",
+     "Ngoma (Town centre (no facility mapped))",
+     "Kibaya (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 6,
+    "documented": 0,
+    "ranked": 6,
+    "robust": 1,
+    "coverage": "well",
+    "top_kwh": 556.1382156241337,
+    "top3": [
+     "Sake (Town centre (no facility mapped))",
+     "Ngoma (Town centre (no facility mapped))",
+     "Kibaya (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 6,
+    "documented": 0,
+    "ranked": 6,
+    "robust": 1,
+    "coverage": "well",
+    "top_kwh": 177.9642289997228,
+    "top3": [
+     "Sake (Town centre (no facility mapped))",
+     "Ngoma (Town centre (no facility mapped))",
+     "Kibaya (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 6,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 0,
+     "documented_in_top": 0,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 0,
+  "settlement_points": 6,
+  "seconds": 5,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (57 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (187 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (187 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (187 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ },
+ "Bugesera": {
+  "district": "Bugesera",
+  "cells": 1280,
+  "positives": 1,
+  "documented_processing": 1,
+  "buildings": 317389,
+  "roofs": true,
+  "settlements": 24,
+  "population": 470180,
+  "area_km2": 1284,
+  "sources": [
+   "Open-Meteo historical weather (ERA5 reanalysis), 2024",
+   "WorldPop 2020 population (wpgppop), summed over the boundary",
+   "OpenStreetMap facilities and settlements",
+   "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (76 tiles)",
+   "Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (258 tiles)",
+   "Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (258 tiles)",
+   "Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (258 tiles)"
+  ],
+  "models": {
+   "potato_storage": {
+    "eligible": 25,
+    "documented": 4,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 7.746347433846716,
+    "top3": [
+     "Market near -2.103, 30.194 (Market)",
+     "Bihari (Village centre (no facility mapped))",
+     "Ramiro (Town centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 3,
+     "documented_in_top": 3,
+     "candidates": 12
+    }
+   },
+   "milk_cooling": {
+    "eligible": 24,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 121.85646322793195,
+    "top3": [
+     "Bihari (Village centre (no facility mapped))",
+     "Ramiro (Town centre (no facility mapped))",
+     "Village near Bihari (Village centre (no facility mapped))"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 3,
+     "documented_in_top": 3,
+     "candidates": 12
+    }
+   },
+   "maize_milling": {
+    "eligible": 24,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 8,
+    "coverage": "well",
+    "top_kwh": 162.12069385426435,
+    "top3": [
+     "Bihari (Village centre (no facility mapped))",
+     "Ramiro (Town centre (no facility mapped))",
+     "Market near -2.103, 30.194 (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 3,
+     "documented_in_top": 3,
+     "candidates": 12
+    }
+   },
+   "maize_drying": {
+    "eligible": 24,
+    "documented": 3,
+    "ranked": 10,
+    "robust": 7,
+    "coverage": "well",
+    "top_kwh": 52.37576720533185,
+    "top3": [
+     "Bihari (Village centre (no facility mapped))",
+     "Ramiro (Town centre (no facility mapped))",
+     "Market near -2.103, 30.194 (Market)"
+    ],
+    "baseline_overlap": 7,
+    "siting": {
+     "status": "ok",
+     "documented_cells": 3,
+     "documented_in_top": 3,
+     "candidates": 12
+    }
+   }
+  },
+  "gather_failed": [],
+  "documented_sites": 4,
+  "settlement_points": 21,
+  "seconds": 11,
+  "release": "Overture Maps power infrastructure (from OpenStreetMap), release 2026-09-23.1 (76 tiles) | Overture Maps places (Meta, Microsoft), release 2026-09-23.1 (258 tiles) | Overture Maps buildings (OpenStreetMap + Google + Microsoft), release 2026-09-23.1 (258 tiles) | Overture Maps roads and paths (from OpenStreetMap), release 2026-09-23.1 (258 tiles)",
+  "engine": "2026-10-10 (tea factories, toilets, hotel/'Mille', coffee shops excluded; same-name sites told apart)"
+ }
+}

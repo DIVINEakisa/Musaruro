@@ -3,6 +3,7 @@ primaryColor = "#2a78d6"
 
 [server]
 headless = true
+enableStaticServing = true
 
 [browser]
 gatherUsageStats = false

@@ -44,7 +44,8 @@ Known inconsistencies inside the NISR tables are logged in `data/processed/data_
    priority score: we tested it against district yields and found no consistent link (see `docs/DATA_NOTES.md`).
 4. `src/actions.py` turns the indicators into an action brief per district and season. Findings are computed from data; "consider" lines are options to test locally, never claimed causes.
 5. `src/advisor.py` and `src/sms_service.py` power the **My next action** tab: generic checks by planting stage (labelled preliminary), crop *evidence* (never a switch recommendation), and an SMS preview with a **simulated** send (no gateway connected, no phone numbers stored, consent required).
-6. Tests in `tests/` check the data against NISR's own totals and published values.
+6. `src/enagis_bridge.py` and the **Infrastructure (EnaGIS)** tab show EnaGIS's district results (candidate sites, estimated energy needs) next to Musaruro's indicators, with EnaGIS Live embedded (`app/static/enagis-live/`). Nothing from EnaGIS is recomputed, there is no combined score, and credits are in `data/enagis/NOTICE.md`.
+7. Tests in `tests/` check the data against NISR's own totals and published values.
 
 ## What Musaruro does **not** claim
 
@@ -79,7 +80,4 @@ AI assistance (Claude, Anthropic) was used in this project, as permitted by the 
 
 ## Team
 
-- Ange UWIZERA(Leader)
--  Divine AKISA
-## Links
-- Musaruro Website Link: https://musaruro-app.streamlit.app/
+_Add team member names, universities and student IDs here._

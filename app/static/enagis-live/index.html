@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="EnaGIS Live: search any place, gather open data, and see where agricultural energy needs are worth investigating first, with how sure we are.">
+<title>EnaGIS Live</title>
+<link rel="icon" type="image/png" href="assets/brand/enagis-mark.png">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="style.css">
+<link rel="preload" href="assets/inter.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fraunces.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fraunces-italic.ttf" as="font" type="font/ttf" crossorigin>
+</head>
+<body class="simple">
+<a class="skip" href="#drawer">Skip to results</a>
+<header class="topbar">
+  <a class="brand" href="index.html" title="Back to the start screen" aria-label="EnaGIS Live home"><img src="assets/brand/enagis-wordmark.png" alt="EnaGIS" height="36"></a>
+  <form id="search-form" class="search" role="search" autocomplete="off">
+    <label class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+      <span class="sr-only">Place to analyze</span>
+      <input id="q" type="search" placeholder="Search a district, sector or town · or lat, lon" required></label>
+    <label class="model-box"><span class="sr-only">Value chain</span>
+      <select id="model">
+        <option value="potato_storage">Cold storage · Irish potato</option>
+        <option value="milk_cooling">Cooling · Milk collection</option>
+        <option value="maize_milling">Milling · Maize</option>
+        <option value="maize_drying">Drying · Maize</option>
+      </select></label>
+    <button class="primary" type="submit" id="go">Analyze</button>
+  </form>
+  <div class="top-actions">
+    <div class="segmented" role="group" aria-label="Season">
+      <button type="button" data-season="dry" aria-pressed="true">Dry season</button>
+      <button type="button" data-season="rainy" aria-pressed="false">Rainy season</button>
+    </div>
+    <button type="button" id="expert" aria-pressed="false" title="Show ranges, evidence labels and drivers">Simple / Expert</button>
+    <button type="button" id="help" aria-label="How EnaGIS Live works">?</button>
+  </div>
+</header>
+<nav id="hero-stepper" class="hero-stepper" aria-label="Views" hidden></nav>
+
+<div class="workspace">
+  <nav class="lens-rail" aria-label="Lenses">
+    <button data-lens="first" aria-current="page"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg>Where first</button>
+    <button data-lens="harvest"><svg viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 9c0-3 2-5 5-5 0 3-2 5-5 5zM12 17c-3 0-5-2-5-4 3 0 5 1 5 4zM12 17c0-3 2-4 5-4 0 2-2 4-5 4z"/></svg>Harvest</button>
+    <button data-lens="energy"><svg viewBox="0 0 24 24"><path d="M13 2 5 14h6l-1 8 8-12h-6z"/></svg>Energy</button>
+    <button data-lens="access"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg>Access</button>
+    <button data-lens="coverage"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m3 15 6-6M3 21 21 3M15 21l6-6"/></svg>Map data</button>
+    <button data-lens="sure"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>How sure</button>
+    <button data-lens="likely"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14.5v6M14.5 17.5h6"/></svg>Likely sites</button>
+  </nav>
+
+  <section class="map-stage" aria-label="Map">
+    <div id="map" role="region" aria-label="Interactive map"></div>
+    <div id="map-b" aria-hidden="true" hidden></div>
+    <div id="swipe" hidden><button id="swipe-handle" aria-label="Drag to compare views">⟷</button></div>
+
+    <aside id="drawer" class="drawer" aria-live="polite"></aside>
+
+    <div class="map-tools">
+      <div class="basemaps" role="group" aria-label="Map view">
+        <button data-base="streets" aria-pressed="true">Streets</button>
+        <button data-base="light" aria-pressed="false">Light</button>
+        <button data-base="satellite" aria-pressed="false">Satellite</button>
+        <button data-base="terrain" aria-pressed="false">Terrain</button>
+        <button data-base="paper" aria-pressed="false" title="Works with no internet">Offline</button>
+      </div>
+      <div class="tool-row">
+        <button id="compare" aria-pressed="false" title="Compare two map views side by side">Compare</button>
+        <select id="compare-base" aria-label="Compare with" hidden>
+          <option value="satellite">vs Satellite</option><option value="terrain">vs Terrain</option>
+          <option value="streets">vs Streets</option><option value="light">vs Light</option><option value="paper">vs Paper</option>
+        </select>
+        <button id="analyze-view" title="Analyze the area currently on screen">Analyze this view</button>
+      </div>
+    </div>
+    <div id="legend" class="legend"></div>
+    <aside id="sheet" class="detail-sheet" aria-label="Selected site" hidden></aside>
+    <aside id="panel" class="side-panel" hidden></aside>
+  </section>
+</div>
+
+<footer class="statusbar">
+  <span id="status">Ready · searches gather live open data (OpenStreetMap, Overture Maps, WorldPop, Open-Meteo) in your browser</span>
+  <span class="status-right"><span id="synthetic-ribbon" hidden>SYNTHETIC DATA</span>
+  <a href="#" id="open-limits">Screening tool, not a feasibility study</a></span>
+</footer>
+<div id="toast" role="status" hidden></div>
+<input type="file" id="open-file" accept=".json,application/json" hidden>
+<div id="print-brief" aria-hidden="true"></div>
+
+<script src="vendor/maplibre-gl.js"></script>
+<script src="js/world-data.js"></script>
+<script src="js/config.js"></script>
+<script src="vendor/enagis-tiles.js"></script>
+<script src="js/siting.js"></script>
+<script src="js/siting-model.js"></script>
+<script src="js/model-comparison.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/sources.js"></script>
+<script src="js/overture.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/synthetic.js"></script>
+<script src="hero/nyabihu-potato.js"></script>
+<script src="js/hero-verification.js"></script>
+<script src="js/hero-ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

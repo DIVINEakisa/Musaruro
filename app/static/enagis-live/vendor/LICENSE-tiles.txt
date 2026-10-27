@@ -1,0 +1,8 @@
+live/vendor/enagis-tiles.js bundles these libraries, unmodified:
+
+- pmtiles 4.3.0 — BSD-3-Clause — Copyright 2021 Protomaps LLC — https://github.com/protomaps/PMTiles
+- @mapbox/vector-tile 2.0.3 — BSD-3-Clause — Copyright (c) 2014, Mapbox — https://github.com/mapbox/vector-tile-js
+- pbf 4.0.1 — BSD-3-Clause — Copyright (c) 2017, Mapbox — https://github.com/mapbox/pbf
+- fflate — MIT — Copyright (c) 2023 Arjun Barrett — https://github.com/101arrowz/fflate
+
+Full licence texts are in each project's repository.
