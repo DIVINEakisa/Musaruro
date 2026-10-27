@@ -78,4 +78,7 @@ AI assistance (Claude, Anthropic) was used in this project, as permitted by the 
 
 ## Team
 
-_Add team member names, universities and student IDs here._
+- Ange UWIZERA(Leader)
+-  Divine AKISA
+## Links
+- Musaruro Website Link: https://musaruro-app.streamlit.app/
