@@ -45,7 +45,8 @@ Known inconsistencies inside the NISR tables are logged in `data/processed/data_
 4. `src/actions.py` turns the indicators into an action brief per district and season. Findings are computed from data; "consider" lines are options to test locally, never claimed causes.
 5. `src/advisor.py` and `src/sms_service.py` power the **My next action** tab: generic checks by planting stage (labelled preliminary), crop *evidence* (never a switch recommendation), and an SMS preview with a **simulated** send (no gateway connected, no phone numbers stored, consent required).
 6. `src/enagis_bridge.py` and the **Infrastructure (EnaGIS)** tab show EnaGIS's district results (candidate sites, estimated energy needs) next to Musaruro's indicators, with EnaGIS Live embedded (`app/static/enagis-live/`). Nothing from EnaGIS is recomputed, there is no combined score, and credits are in `data/enagis/NOTICE.md`.
-7. Tests in `tests/` check the data against NISR's own totals and published values.
+7. **Crops nationwide** tab (`src/crop_view.py`): pick a crop, see every district. **Irrigation & soil** tab (`src/build_water.py`, `src/irrigation.py`): who irrigates, techniques and water sources (NISR SAS 2026, AHS 2024), how often seasons were clearly dry (CHIRPS), a pump and solar sizing sketch that reuses EnaGIS's PV sizing rule, and fertilizer and soil-threat context. Run `python -m src.build_water` after `build_dataset`. The About tab maps the app to the Track 1 hints and states the gaps (export, coffee).
+8. Tests in `tests/` check the data against NISR's own totals and published values.
 
 ## What Musaruro does **not** claim
 

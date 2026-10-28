@@ -103,3 +103,12 @@ Logged automatically in `data/processed/data_quality_log.csv`.
 - EnaGIS production inputs are SAS 2024 Season A shares scaled to 2024 national totals (ESTIMATED; Bugesera, Kirehe, Ngoma imputed). Musaruro's figures are SAS 2026. They are shown separately and never merged.
 - Evidence labels follow EnaGIS: OBSERVED (documented, reported), ESTIMATED (rankings, kWh/day, 2024 production), PREDICTED (look-alike sites), UNKNOWN (field verification n=0).
 - Not tested by us: EnaGIS's own Python and JavaScript tests. Run its CI (`make` targets in its repository) before relying on them.
+
+## Irrigation and soil tables
+
+- Source: SAS 2026 Season A Tables 31-33 and Season B Tables 29-31 (district), AHS 2024 Tables 25, 26, 38 (province). Parsed by `src/build_water.py`. Season B Table 30 spells Nyarugenge as 'Nyarugenege'; matched by fuzzy name.
+- Technique and water-source shares are % of irrigated plots, a small sample in most districts: indications only.
+- Dry-season count = baseline seasons 2016-2024 below 85% of that district's own normal (CHIRPS; normal includes the year itself). Season A has 8 complete seasons, Season B 9.
+- Screening rule 'check first': under 10% of farmers irrigate and at least 3 dry seasons. Team-set thresholds, not official.
+- Coffee and tea: not in the NISR files used; only a combined permanent-crops area per district exists. No coffee figures are shown.
+- Pump sketch: energy = m3 x g x head / pump efficiency; solar kWp = kWh/day / (sun hours x PR); PR 0.65-0.80 taken from EnaGIS config. Excludes friction, storage, water rights.

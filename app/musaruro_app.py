@@ -18,6 +18,8 @@ import actions  # noqa: E402
 import advisor  # noqa: E402
 import enagis_bridge as eb  # noqa: E402
 import alerts  # noqa: E402
+import crop_view as cv  # noqa: E402
+import irrigation as irg  # noqa: E402
 import sms_service  # noqa: E402
 import rainfall_watch as rw  # noqa: E402
 from indicators import add_priority  # noqa: E402
@@ -45,6 +47,8 @@ def load():
                 seed=r("improved_seed_district.csv"), rain=rain, geo=geo, dq=r("data_quality_log.csv"),
                 nat=r("national_reference.csv"), prac=r("practices_district.csv"), cds=r("crop_district_season.csv"),
                 seedcrop=r("improved_seed_crop_national.csv"), sow=r("sowing_month_district.csv"),
+                irr=r("irrigation_district.csv"), ahsw=r("ahs_water_province.csv"), ahss=r("ahs_soil_province.csv"),
+                land=r("land_use_district.csv"),
                 eg_dist=r("enagis_district.csv"), eg_chain=r("enagis_district_chain.csv"),
                 eg_prod=pd.read_csv(ROOT / "data" / "enagis" / "district_production_2024.csv"))
 
@@ -76,9 +80,9 @@ def choropleth(df, col, title, colorscale, zmid=None, fmt_hover="%{z:.0f}", zmin
 
 st.title("🌾 Musaruro")
 st.caption("Know your yield, act in time · District decision tool built on NISR Seasonal Agricultural Survey 2026 and CHIRPS rainfall")
-tab1, tab6, tab7, tab2, tab5, tab8, tab3, tab4 = st.tabs(
-    ["My district", "Alerts", "My next action", "Priority districts", "Action plan", "Infrastructure (EnaGIS)", "Rainfall watch",
-     "About the data"])
+tab1, tab6, tab7, tab9, tab2, tab10, tab5, tab8, tab3, tab4 = st.tabs(
+    ["My district", "Alerts", "My next action", "Crops nationwide", "Priority districts", "Irrigation & soil", "Action plan",
+     "Infrastructure (EnaGIS)", "Rainfall watch", "About the data"])
 PERIODS = {"Season A 2027 so far": ("A", 2027), "Season B 2026 (last season)": ("B", 2026), "Season A 2026": ("A", 2026)}
 
 # ------------------------------------------------------------------ 1. My district (farmer view)
@@ -554,11 +558,187 @@ with tab3:
     st.dataframe(t.round(0), hide_index=True, width="stretch")
 
 # ------------------------------------------------------------------ 4. About
+
+# ------------------------------------------------------------------ 9. Crops nationwide
+@st.cache_data
+def _dry_exposure():
+    return pd.concat([irg.dry_exposure(D["rain"], k) for k in ("A", "B")])
+
+
+def full_map_df(df, col):
+    base = pd.DataFrame({"district": DISTRICTS})
+    return base.merge(df[["district", col]], on="district", how="left")
+
+
+with tab9:
+    st.markdown("**One crop, every district.** Pick a crop to see where it is grown, how much, and how its yield compares with the "
+                "national yield (NISR Seasonal Agricultural Survey 2026).")
+    c1, c2, c3 = st.columns([1, 1.4, 1.4])
+    cw_season = c1.radio("Season", ["A", "B"], horizontal=True, key="cw_season",
+                         help="Season A is roughly Sep–Jan, Season B Feb–Jun.")
+    cw_groups = c2.checkbox("Include crop groups (all beans, cereals, tubers…)", value=False, key="cw_groups")
+    crops_avail = cv.crop_list(D["cds"], cw_season, cw_groups)
+    cw_crop = c3.selectbox("Crop", crops_avail, index=crops_avail.index("Bush bean") if "Bush bean" in crops_avail else 0,
+                           key="cw_crop")
+    cw_metric = st.radio("Show on the map", ["Harvested area (ha)", "Yield (kg/ha)", "Yield vs national (%)", "Share of national production (%)"],
+                         horizontal=True, key="cw_metric")
+    nt = cv.national_table(D["cds"], cw_season, cw_crop, D["nat"])
+    col = {"Harvested area (ha)": "harvested_ha", "Yield (kg/ha)": "yield_kg_ha", "Yield vs national (%)": "yield_vs_national_pct",
+           "Share of national production (%)": "production_share_pct"}[cw_metric]
+    nat_row = D["nat"][(D["nat"].season == cw_season) & (D["nat"].crop == cw_crop)]
+    k1, k2, k3, k4 = st.columns(4)
+    k1.metric("Districts growing it", f"{len(nt)} of 30")
+    k2.metric("Harvested nationally", f"{nt.harvested_ha.sum():,.0f} ha")
+    k3.metric("National yield", f"{nat_row.yield_kg_ha.iloc[0]:,.0f} kg/ha" if len(nat_row) and pd.notna(nat_row.yield_kg_ha.iloc[0]) else "n/a")
+    k4.metric("Top 5 districts hold", f"{cv.concentration(nt):.0f}% of the area" if len(nt) else "n/a")
+    if col == "yield_vs_national_pct":
+        mp = choropleth(full_map_df(nt, col), col, "Yield vs national (%)", DIVERGING, zmid=100, zmin=50, zmax=150, fmt_hover="%{z:.0f}%")
+    else:
+        mp = choropleth(full_map_df(nt, col), col, cw_metric, BLUE, fmt_hover="%{z:,.0f}")
+    st.plotly_chart(mp, width="stretch")
+    st.caption("Grey = the crop is not reported in that district. Yields on very small areas (under "
+               f"{cv.MIN_AREA_HA} ha) are marked in the table and are not reliable.")
+    top = nt.head(10)
+    fig = go.Figure(go.Bar(x=top.harvested_ha[::-1], y=top.district[::-1], orientation="h", marker_color=C_DISTRICT,
+                           hovertemplate="%{y}: %{x:,.0f} ha<extra></extra>"))
+    fig.update_layout(title=f"{cw_crop}: 10 largest districts by harvested area, Season {cw_season} 2026", height=360,
+                      margin=dict(l=0, r=10, t=40, b=0), xaxis_title="Harvested area (ha)", paper_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fig, width="stretch")
+    tbl = nt[["district", "province", "harvested_ha", "area_share_pct", "yield_kg_ha", "yield_vs_national_pct", "production_mt", "thin"]].copy()
+    tbl["thin"] = tbl.thin.map({True: "very small area", False: ""})
+    st.dataframe(tbl.rename(columns={"harvested_ha": "Harvested ha", "area_share_pct": "% of national area", "yield_kg_ha": "Yield kg/ha",
+                                     "yield_vs_national_pct": "Yield vs national %", "production_mt": "Production (t)", "thin": "Note"}),
+                 hide_index=True, width="stretch",
+                 column_config={"Harvested ha": st.column_config.NumberColumn(format="%.0f"),
+                                "% of national area": st.column_config.NumberColumn(format="%.1f"),
+                                "Yield kg/ha": st.column_config.NumberColumn(format="%.0f"),
+                                "Yield vs national %": st.column_config.NumberColumn(format="%.0f"),
+                                "Production (t)": st.column_config.NumberColumn(format="%.0f")})
+    st.download_button("Download this table (CSV)", tbl.to_csv(index=False).encode(), f"musaruro_{cw_crop.replace(' ', '_')}_{cw_season}.csv",
+                       "text/csv", key="cw_dl")
+    with st.expander("Looking for coffee, tea or other export crops?"):
+        st.markdown("**Coffee and tea are not in the NISR files this app uses.** The Seasonal Agricultural Survey covers seasonal crops; "
+                    "coffee and tea are permanent crops, and the tables we have report them only inside one combined "
+                    "*permanent crops* area per district. We do not guess at district coffee figures. The map below shows that "
+                    "combined area (it includes banana, coffee, tea and others), so it points to where permanent-crop land is, "
+                    "**not** where coffee is. District coffee data would need a source such as the National Agriculture Export "
+                    "Development Board (NAEB) or a NISR permanent-crops table.")
+        lu = D["land"][(D["land"].season == "A") & (D["land"].district != "National")]
+        st.plotly_chart(choropleth(full_map_df(lu, "permanent_crops_kha"), "permanent_crops_kha",
+                                   "Permanent crops (000 ha)", BLUE, fmt_hover="%{z:.1f}"), width="stretch")
+
+# ------------------------------------------------------------------ 10. Irrigation & soil
+with tab10:
+    st.markdown("**Small-scale irrigation and soil care, district by district.** Built from NISR SAS 2026 (who irrigates, how, and "
+                "from what water source), CHIRPS rainfall (how often seasons were clearly dry) and AHS 2024 (why plots are not irrigated). "
+                "This is a **screening aid**: it shows where irrigation is rare and dry seasons are common, so a field visit or "
+                "water-source survey is a sensible next step. It does not say irrigation will raise yields.")
+    ir_season = st.radio("Season", ["A", "B"], horizontal=True, key="ir_season")
+    shares = actions.practice_shares(D["cds"], D["prac"])
+    scr = irg.screen(D["irr"], shares, _dry_exposure(), ir_season)
+    cA, cB = st.columns([1.15, 1])
+    with cA:
+        st.plotly_chart(choropleth(scr, "farmers_irrigating_pct", "Farmers who irrigate (%)", BLUE, fmt_hover="%{z:.0f}%"),
+                        width="stretch")
+    with cB:
+        flagged = scr[scr.check_first]
+        st.markdown(f"##### Check first ({len(flagged)} district{'' if len(flagged) == 1 else 's'})")
+        st.caption(f"Fewer than {irg.LOW_USE_PCT:.0f}% of farmers irrigate **and** at least {irg.DRY_YEARS_FLAG} of the seasons "
+                   f"2016–2024 had rainfall below {irg.DRY_PCT}% of normal (CHIRPS satellite estimate).")
+        if len(flagged):
+            st.dataframe(flagged[["district", "farmers_irrigating_pct", "dry_seasons", "seasons_checked", "driest_pct"]].rename(
+                columns={"farmers_irrigating_pct": "Farmers irrigating %", "dry_seasons": "Clearly dry seasons",
+                         "seasons_checked": "Seasons checked", "driest_pct": "Driest season, % of normal"}),
+                hide_index=True, width="stretch",
+                column_config={"Farmers irrigating %": st.column_config.NumberColumn(format="%.1f"),
+                               "Driest season, % of normal": st.column_config.NumberColumn(format="%.0f")})
+        else:
+            st.info("No district meets both conditions in this season.")
+    with st.expander("All 30 districts"):
+        st.dataframe(scr.drop(columns=["low_use", "often_dry"]).rename(columns={
+            "farmers_irrigating_pct": "Farmers irrigating %", "farmers_irrigating_pct_ssf": "…small-scale farmers %",
+            "irrigated_pct": "Cropland irrigated %", "dry_seasons": "Clearly dry seasons", "seasons_checked": "Seasons checked",
+            "driest_pct": "Driest season % of normal", "check_first": "Check first"}), hide_index=True, width="stretch")
+
+    st.markdown("##### One district: how farmers irrigate and where the water comes from")
+    ir_d = st.selectbox("District", DISTRICTS, index=DISTRICTS.index("Ngoma"), key="ir_d")
+    row = D["irr"][(D["irr"].season == ir_season) & (D["irr"].district == ir_d)].iloc[0]
+    sr = scr[scr.district == ir_d].iloc[0]
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Farmers who irrigate", f"{row.farmers_irrigating_pct:.1f}%")
+    m2.metric("Cropland irrigated", f"{sr.irrigated_pct:.1f}%" if pd.notna(sr.irrigated_pct) else "n/a")
+    m3.metric("Clearly dry seasons since 2016", f"{int(sr.dry_seasons)} of {int(sr.seasons_checked)}")
+    t_lab = {"surface": "Surface", "flood": "Flood", "drip": "Drip", "sprinkler": "Sprinkler", "pivot": "Pivot", "traditional": "Traditional"}
+    s_lab = {"rainwater": "Rainwater", "treatment_plant": "Treatment plant", "underground": "Underground", "lake_stream": "Lake / stream",
+             "catchment": "Water catchment", "other_source": "Other"}
+    g1, g2 = st.columns(2)
+    for g, pre, lab, ttl in ((g1, "tech_", t_lab, "Irrigation technique (% of irrigated plots)"),
+                             (g2, "src_", s_lab, "Water source (% of irrigated plots)")):
+        vals = [row[pre + k] for k in lab]
+        f = go.Figure(go.Bar(x=list(lab.values()), y=vals, marker_color=C_DISTRICT, hovertemplate="%{x}: %{y:.0f}%<extra></extra>"))
+        f.update_layout(title=ttl, height=300, margin=dict(l=0, r=0, t=40, b=0), yaxis_title="%", paper_bgcolor="rgba(0,0,0,0)")
+        g.plotly_chart(f, width="stretch")
+    st.caption(irg.SMALL_SAMPLE_NOTE + " Treat shares as indications.")
+
+    st.markdown("##### Why plots are not irrigated (AHS 2024, by province)")
+    aw = D["ahsw"].copy()
+    fw = go.Figure()
+    for k, lab, colr in (("not_irrigated_not_needed_pct", "Not needed", "#9ec5f4"), ("not_irrigated_cannot_afford_pct", "Cannot afford", "#256abf"),
+                         ("not_irrigated_no_water_pct", "No water available", "#e34948"), ("plots_irrigated_pct", "Irrigated", "#0d366b")):
+        fw.add_bar(x=aw.province, y=aw[k], name=lab, marker_color=colr, hovertemplate="%{x}: %{y:.1f}%<extra>" + lab + "</extra>")
+    fw.update_layout(barmode="stack", height=340, margin=dict(l=0, r=0, t=10, b=0), yaxis_title="% of plots",
+                     legend=dict(orientation="h", y=-0.15), paper_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fw, width="stretch")
+    east = aw[aw.province == "East"].iloc[0]
+    st.caption(f"In the Eastern Province {east.not_irrigated_no_water_pct:.0f}% of plots are not irrigated because no water is available, "
+               f"against {aw[aw.province == 'Rwanda'].iloc[0].not_irrigated_no_water_pct:.0f}% nationally. That points to water supply, "
+               "not only cost, as the limit where dry seasons are most frequent.")
+
+    st.markdown("##### Pump and solar sizing sketch")
+    st.caption("A back-of-envelope estimate (ESTIMATED), using the same solar sizing rule as EnaGIS: kWh per day ÷ (peak sun hours × "
+               "performance ratio). It ignores pipe losses, storage and water-use rights. Change every input to match the site; "
+               "EnaGIS Live (Infrastructure tab) shows mapped power lines for site-level supply.")
+    p1, p2, p3, p4, p5 = st.columns(5)
+    a_ha = p1.number_input("Area to irrigate (ha)", 0.05, 50.0, 1.0, 0.05, key="pm_area")
+    dmm = p2.number_input("Water per day (mm)", 1.0, 12.0, 5.0, 0.5, key="pm_mm", help="Crop water need is crop- and season-specific; ask an agronomist.")
+    hd = p3.number_input("Lift height (m)", 1.0, 150.0, 20.0, 1.0, key="pm_head")
+    ef = p4.number_input("Pump efficiency", 0.2, 0.8, 0.5, 0.05, key="pm_eff")
+    sun = p5.number_input("Peak sun hours/day", 2.0, 7.0, 4.5, 0.1, key="pm_sun", help="Use the darkest-month value for dry-season reliability.")
+    ps = irg.pump_sketch(a_ha, dmm, hd, ef, sun)
+    q1, q2, q3 = st.columns(3)
+    q1.metric("Water per day", f"{ps['m3_day']:,.0f} m³")
+    q2.metric("Pump energy", f"{ps['kwh_day']:.1f} kWh/day")
+    q3.metric("Solar array (central)", f"{ps['kwp']:.1f} kWp",
+              help=f"Performance ratio {irg.PV_PERFORMANCE_RATIO['central']} (EnaGIS range {irg.PV_PERFORMANCE_RATIO['low']}–{irg.PV_PERFORMANCE_RATIO['high']}).")
+
+    st.divider()
+    st.markdown("#### Soil care and fertility")
+    st.caption("Share of cropland receiving inorganic or organic fertilizer (NISR SAS 2026, area under fertilizer ÷ developed cropland) and "
+               "the soil threats households report (AHS 2024). Shown side by side; neither is claimed to explain yields.")
+    sf_kind = st.radio("Map", ["Inorganic fertilizer (% of cropland)", "Organic fertilizer (% of cropland)"], horizontal=True, key="sf_kind")
+    sf_col = "inorganic_fert_pct" if sf_kind.startswith("Inorganic") else "organic_fert_pct"
+    sh_s = shares[(shares.season == ir_season) & (shares.district != "National")]
+    st.plotly_chart(choropleth(full_map_df(sh_s, sf_col), sf_col, sf_kind, BLUE, fmt_hover="%{z:.0f}%"), width="stretch")
+    ss = D["ahss"]
+    pivot = ss.pivot_table(index="threat", columns="province", values="pct_households")[["Kigali", "South", "West", "North", "East", "Rwanda"]]
+    st.dataframe(pivot.round(1), width="stretch")
+    st.caption("% of agricultural households reporting each soil threat, AHS 2024. Households could report more than one threat.")
+
 with tab4:
+    st.subheader("How Musaruro covers the Track 1 hints")
+    st.dataframe(pd.DataFrame([
+        ("Agricultural productivity", "Covered", "Yield gaps, priority districts, crop-by-district view, action plan", "Benchmark is the national average, not potential yield"),
+        ("Small-scale irrigation", "Covered (screening)", "Irrigation tab: who irrigates, techniques, water sources, dry-season frequency, pump and solar sizing sketch", "No slope, soil or water-source map, so it cannot say where irrigation is feasible"),
+        ("Soil conservation and fertility", "Partly", "Fertilizer share of cropland, soil threats reported by households, action plan", "No soil tests; erosion data only as hectares and province shares"),
+        ("Post-harvest collection and storage", "Partly", "EnaGIS candidate storage, cooling and drying sites with energy estimates", "No post-harvest loss data; sites are candidates to check"),
+        ("Processing and value addition", "Partly", "EnaGIS milling and drying candidates and energy needs", "No price or market data"),
+        ("Export market opportunities", "Not covered", "Gap stated in the Crops tab (coffee, tea)", "The NISR files used have no export or permanent-crop district data"),
+    ], columns=["Hint", "Status", "Where in Musaruro", "Limit"]), hide_index=True, width="stretch")
     st.markdown("""
 ### Where the numbers come from
 - **NISR Seasonal Agricultural Survey 2026**, Season A and B: area, harvested area, yield, production, improved-seed use, by district and crop.
 - **CHIRPS v3** monthly rainfall (Climate Hazards Center, UC Santa Barbara) and **geoBoundaries** district boundaries.
+- **NISR Agricultural Household Survey 2024**: why plots are not irrigated, irrigation water sources and soil threats, by province.
 - **EnaGIS** (Team Dynamis, MIT licence): candidate storage, cooling, milling and drying sites and estimated energy needs for all 30 districts, built on OpenStreetMap and Overture Maps (ODbL), WorldPop and Open-Meteo (CC BY 4.0). Shown in the Infrastructure tab with its own evidence labels; Musaruro does not recompute it.
 - Every figure traces to an NISR table; nothing is imputed. See `docs/DATA_NOTES.md`.
 
