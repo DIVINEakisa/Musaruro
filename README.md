@@ -82,3 +82,14 @@ AI assistance (Claude, Anthropic) was used in this project, as permitted by the 
 ## Team
 
 _Add team member names, universities and student IDs here._
+
+## Season selector and adding another survey season
+
+The list at the top of the app covers every season since 2018 that has started, newest first, and grows by itself as new CHIRPS
+months are added. Rainfall tabs (Alerts, My next action, Rainfall watch) work for every season in the list. Survey tabs (My district,
+Crops nationwide, Priority districts, Irrigation & soil, Action plan) need NISR SAS tables and currently have them for **Seasons A and B 2026
+only**; for any other season they say so instead of showing numbers. Nothing is estimated or back-filled.
+
+To add a season: put the NISR SAS workbook in `data/raw/`, add its table numbers to `SEASONS` in `src/build_dataset.py` (table numbers change
+between years) with a `year` for the output rows, re-run the build scripts, then add `("A", year)` to `SURVEY_SEASONS` in `app/musaruro_app.py`.
+Note the processed tables do not yet carry a `year` column; adding it is part of that work.

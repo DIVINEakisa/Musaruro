@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 
 import pandas as pd
@@ -80,16 +81,73 @@ def choropleth(df, col, title, colorscale, zmid=None, fmt_hover="%{z:.0f}", zmin
 
 st.title("🌾 Musaruro")
 st.caption("Know your yield, act in time · District decision tool built on NISR Seasonal Agricultural Survey 2026 and CHIRPS rainfall")
+# ------------------------------------------------------------------ season selector (whole app)
+FIRST_YEAR = 2018
+SURVEY_SEASONS = {("A", 2026), ("B", 2026)}      # NISR SAS tables loaded; add new (season, year) here when files are added
+
+
+def season_options(rain_df):
+    have = set(zip(rain_df.year, rain_df.month))
+    last = max(rain_df.year)
+    out = []
+    for y in range(last + 1, FIRST_YEAR - 1, -1):
+        for k in ("B", "A"):
+            if rw.season_year_months(k, y)[0] in have:          # season has started: first month observed
+                out.append((k, y))
+    return out
+
+
+def season_name(k, y):
+    first, last_ = rw.season_year_months(k, y)[0], rw.season_year_months(k, y)[-1]
+    mon = lambda ym: pd.Timestamp(year=ym[0], month=ym[1], day=1).strftime("%b %Y")
+    return f"Season {k} {y} ({mon(first)}–{mon(last_)})"
+
+
+class _Skip(Exception):
+    pass
+
+
+@contextmanager
+def tabx(t):
+    with t:
+        try:
+            yield
+        except _Skip:
+            pass
+
+
+def need_survey():
+    """Stop a survey-based tab early when NISR tables for the chosen season are not loaded."""
+    if (SEL_S, SEL_Y) not in SURVEY_SEASONS:
+        have = ", ".join(f"{k} {y}" for k, y in sorted(SURVEY_SEASONS, key=lambda t: (t[1], t[0])))
+        st.info(f"NISR survey tables for **{season_name(SEL_S, SEL_Y)}** are not loaded in this app (loaded: Season {have}). "
+                "This tab needs them. Rainfall tabs (Alerts, My next action, Rainfall watch) work for any season shown in the list. "
+                "To add a season, see README, 'Adding another survey season'.")
+        raise _Skip
+
+
+_opts = season_options(D["rain"])
+_default = _opts.index(("B", 2026)) if ("B", 2026) in _opts else 0
+_sel = st.selectbox("Season (all tabs)", _opts, index=_default, format_func=lambda t: season_name(*t),
+                    key="global_season", help="Pick any season since 2018. Rainfall is available for all of them; NISR survey "
+                    "tables are loaded for Seasons A and B 2026 only.")
+SEL_S, SEL_Y = _sel
+if (SEL_S, SEL_Y) in SURVEY_SEASONS:
+    st.caption("NISR survey data and satellite rainfall are both available for this season.")
+else:
+    st.caption("Satellite rainfall is available for this season. NISR survey tabs need tables that are not loaded for it.")
+
 tab1, tab6, tab7, tab9, tab2, tab10, tab5, tab8, tab3, tab4 = st.tabs(
     ["My district", "Alerts", "My next action", "Crops nationwide", "Priority districts", "Irrigation & soil", "Action plan",
      "Infrastructure (EnaGIS)", "Rainfall watch", "About the data"])
-PERIODS = {"Season A 2027 so far": ("A", 2027), "Season B 2026 (last season)": ("B", 2026), "Season A 2026": ("A", 2026)}
 
 # ------------------------------------------------------------------ 1. My district (farmer view)
-with tab1:
+with tabx(tab1):
+    need_survey()
     c1, c2, c3 = st.columns(3)
     district = c1.selectbox("District", DISTRICTS, index=DISTRICTS.index("Musanze"))
-    season = c2.radio("Season", ["A", "B"], format_func=lambda s: SEASON_LABEL[s], horizontal=True)
+    season = SEL_S
+    c2.markdown(f"**{SEASON_LABEL[season]}**<br><small>change it in the season list at the top</small>", unsafe_allow_html=True)
     crops = D["crop"]
     avail = sorted(crops[(crops.district == district) & crops.yield_vs_national_pct.notna()].crop.unique())
     crop = c3.selectbox("Crop", avail, index=avail.index("Maize") if "Maize" in avail else 0)
@@ -144,9 +202,9 @@ with tab6:
         st.info("The rainfall baseline is not loaded, so alerts are unavailable.")
     else:
         c1, c2 = st.columns(2)
-        per = c1.radio("Period", list(PERIODS), horizontal=True, key="al_per")
+        c1.markdown(f"**{season_name(SEL_S, SEL_Y)}**<br><small>change it in the season list at the top</small>", unsafe_allow_html=True)
         basis = c2.radio("Compare", ["Whole season", "Sowing window"], horizontal=True, key="al_basis")
-        a_s, a_y = PERIODS[per]
+        a_s, a_y = SEL_S, SEL_Y
         al = alerts.build(D["rain"], D["sow"], a_s, a_y, "season" if basis == "Whole season" else "sowing")
         if al.empty:
             st.info("The months of this window have not been observed yet. CHIRPS publishes monthly data about two weeks "
@@ -186,7 +244,7 @@ with tab6:
                 st.write(alerts.explain(r))
                 crops_d = D["crop"][(D["crop"].district == ad) & (D["crop"].season == a_s) & D["crop"].yield_vs_national_pct.notna()] \
                     .sort_values("harvested_ha", ascending=False).head(3).crop.tolist()
-                if crops_d:
+                if crops_d and (a_s, a_y) in SURVEY_SEASONS:
                     st.write("Main crops here (by harvested area, 2026 survey): " + ", ".join(crops_d) + ".")
                 st.markdown("**What to check next:** " + alerts.SAFE_STEPS)
                 msg = alerts.sms(r)
@@ -214,12 +272,12 @@ with tab7:
     else:
         c1, c2, c3, c4 = st.columns(4)
         n_dist = c1.selectbox("District", DISTRICTS, index=DISTRICTS.index("Huye"), key="na_dist")
-        n_per = c2.selectbox("Period", list(PERIODS), index=1, key="na_per")
+        c2.markdown(f"**{season_name(SEL_S, SEL_Y)}**<br><small>change it in the season list at the top</small>", unsafe_allow_html=True)
         main_crops = ["Maize", "Bush bean", "Climbing bean", "Soybean", "Sorghum", "Irish potato", "Sweet potato", "Cassava",
                       "Paddy rice", "Wheat", "Vegetables"]
         n_crop = c3.selectbox("Crop you plan or grow", main_crops, key="na_crop")
         n_stage = c4.selectbox("Planting stage", advisor.STAGES, key="na_stage")
-        n_s, n_y = PERIODS[n_per]
+        n_s, n_y = SEL_S, SEL_Y
         nal = alerts.build(D["rain"], D["sow"], n_s, n_y, "season")
         nrow = nal[nal.district == n_dist]
         if nrow.empty:
@@ -274,7 +332,7 @@ with tab7:
                 st.info("There is no reviewed Kinyarwanda template yet. Write one below and confirm a native speaker reviewed it.")
             if not default and lang == "en":
                 st.info("No alert for this period, so no message is generated.")
-            text = st.text_area("Message (editable)", default, key=f"na_text_{lang}_{n_dist}_{n_per}", height=90)
+            text = st.text_area("Message (editable)", default, key=f"na_text_{lang}_{n_dist}_{SEL_S}{SEL_Y}", height=90)
             li = sms_service.length_info(text)
             st.caption(f"{li['chars']} characters · {li['note']}")
             grp = st.selectbox("Recipient group", ["(choose)"] + sms_service.GROUPS, key="na_group")
@@ -309,7 +367,7 @@ with tab7:
             if "follow" not in st.session_state:
                 st.session_state.follow = []
             if ok:
-                st.session_state.follow.append(dict(district=n_dist, period=n_per, level=r.level, received=got, action_taken=did,
+                st.session_state.follow.append(dict(district=n_dist, period=season_name(SEL_S, SEL_Y), level=r.level, received=got, action_taken=did,
                                                     asked_agronomist=adv, note=note, record_type="DEMO (not real feedback)"))
             if st.session_state.follow:
                 fd = pd.DataFrame(st.session_state.follow)
@@ -319,11 +377,12 @@ with tab7:
                        "would work; they are not evidence that alerts help farmers.")
 
 # ------------------------------------------------------------------ 2. Priority districts (officer view)
-with tab2:
+with tabx(tab2):
+    need_survey()
     st.markdown("Which districts to look at first? The score ranks districts on **how far yields fall below the national "
                 "average** and **how rarely farmers use improved seed**. Rainfall is not in the score (see About).")
     c1, c2 = st.columns([1, 2])
-    pick = c1.radio("Season", ["A", "B", "Both (average)"], horizontal=True, key="p_season")
+    pick = c1.radio("Season", ["A", "B", "Both (average)"], index=["A", "B"].index(SEL_S), horizontal=True, key=f"p_season_{SEL_S}")
     wy = c2.slider("Weight on yield gap (the rest goes to improved seed)", 0, 100, 50, 10, format="%d%%")
     di = add_priority(D["dist"], w_yield=wy, w_seed=100 - wy)
     if pick == "Both (average)":
@@ -373,17 +432,19 @@ with tab2:
         st.info("No crop with a comparable yield below the national average in this district and season.")
 
 # ------------------------------------------------------------------ 2b. Action plan
-with tab5:
+with tabx(tab5):
+    need_survey()
     st.markdown("From analysis to action: for a district and season, Musaruro lists **where the gap is, who does better, which "
                 "practices differ, and what to check or try**. Findings come from the data. The *consider* lines are options to "
                 "test with local agronomists, not proven causes.")
     c1, c2 = st.columns(2)
-    a_season = c1.radio("Season", ["A", "B"], format_func=lambda s: SEASON_LABEL[s], horizontal=True, key="a_season")
+    a_season = SEL_S
+    c1.markdown(f"**{SEASON_LABEL[a_season]}**<br><small>change it in the season list at the top</small>", unsafe_allow_html=True)
     top_d = D["dist"][D["dist"].season == a_season].sort_values("priority_score", ascending=False).district.tolist()
     a_dist = c2.selectbox("District (ordered by priority)", top_d, key="a_dist")
     shares = actions.practice_shares(D["cds"], D["prac"])
     seed_nat = D["seedcrop"].query("season == @a_season").set_index("crop").improved_seed_pct.to_dict()
-    sa5 = rw.season_anomaly(D["rain"], a_season, YEAR).set_index("district")
+    sa5 = rw.season_anomaly(D["rain"], a_season, SEL_Y).set_index("district")
     rs = sa5.loc[a_dist] if (rw.baseline_ready(D["rain"]) and sa5.loc[a_dist].months_available == sa5.loc[a_dist].months_in_window) else None
     fi = D["dist"].query("district == @a_dist and season == @a_season").farmers_improved_pct.iloc[0]
     items = actions.brief(a_dist, a_season, D["crop"], shares, seed_nat,
@@ -407,6 +468,8 @@ with tab8:
                 "from CHIRPS) is shown next to **EnaGIS** (Team Dynamis): candidate storage, cooling, milling and drying sites, and "
                 "estimated electricity needs. Each side keeps its own method and evidence label. **No combined score**, and neither "
                 "side is claimed to explain the other.")
+    st.caption("This tab is not season-specific: infrastructure candidates come from EnaGIS (data gathered Oct 2026), and the agriculture and "
+               "climate cards use the 2026 surveys and Season B 2026 rainfall whatever season is selected above.")
     egd, egc = D["eg_dist"], D["eg_chain"]
     prod = eb.production_2026(D["crop"], D["eg_prod"]).set_index("district")
     di8 = add_priority(D["dist"])
@@ -516,9 +579,10 @@ with tab3:
         st.info("Normal rainfall (2016–2024 baseline) is not loaded yet, so this page shows rainfall in millimetres only. "
                 "Add the baseline files and re-run `src/climate.py` to see % of normal.")
     c1, c2 = st.columns(2)
-    s3 = c1.radio("Season", ["A", "B"], format_func=lambda s: SEASON_LABEL[s], horizontal=True, key="r_season")
+    s3 = SEL_S
+    c1.markdown(f"**{season_name(SEL_S, SEL_Y)}**<br><small>change it in the season list at the top</small>", unsafe_allow_html=True)
     d3 = c2.selectbox("District", DISTRICTS, index=DISTRICTS.index("Musanze"), key="r_dist")
-    sa = rw.season_anomaly(rain, s3, YEAR)
+    sa = rw.season_anomaly(rain, s3, SEL_Y)
     mo = int(sa.months_available.iloc[0])
     full = mo == int(sa.months_in_window.iloc[0])
     if not full:
@@ -532,7 +596,7 @@ with tab3:
         m.plotly_chart(choropleth(sa, "rain_mm", "Season rain (mm)", BLUE, fmt_hover="%{z:,.0f} mm"), width="stretch")
 
     mrow = rain[rain.district == d3].copy()
-    pairs = rw.season_year_months(s3, YEAR)
+    pairs = rw.season_year_months(s3, SEL_Y)
     mrow = mrow[[(y, mm) in pairs for y, mm in zip(mrow.year, mrow.month)]]
     mrow["lab"] = [pd.Timestamp(year=y, month=mm, day=1).strftime("%b %Y") for y, mm in zip(mrow.year, mrow.month)]
     fig = go.Figure(go.Bar(x=mrow.lab, y=mrow.rain_mm, name=d3, marker_color=C_DISTRICT, width=0.4,
@@ -570,12 +634,13 @@ def full_map_df(df, col):
     return base.merge(df[["district", col]], on="district", how="left")
 
 
-with tab9:
+with tabx(tab9):
+    need_survey()
     st.markdown("**One crop, every district.** Pick a crop to see where it is grown, how much, and how its yield compares with the "
                 "national yield (NISR Seasonal Agricultural Survey 2026).")
     c1, c2, c3 = st.columns([1, 1.4, 1.4])
-    cw_season = c1.radio("Season", ["A", "B"], horizontal=True, key="cw_season",
-                         help="Season A is roughly Sep–Jan, Season B Feb–Jun.")
+    cw_season = SEL_S
+    c1.markdown(f"**{SEASON_LABEL[cw_season]}**<br><small>change it in the season list at the top</small>", unsafe_allow_html=True)
     cw_groups = c2.checkbox("Include crop groups (all beans, cereals, tubers…)", value=False, key="cw_groups")
     crops_avail = cv.crop_list(D["cds"], cw_season, cw_groups)
     cw_crop = c3.selectbox("Crop", crops_avail, index=crops_avail.index("Bush bean") if "Bush bean" in crops_avail else 0,
@@ -628,12 +693,14 @@ with tab9:
                                    "Permanent crops (000 ha)", BLUE, fmt_hover="%{z:.1f}"), width="stretch")
 
 # ------------------------------------------------------------------ 10. Irrigation & soil
-with tab10:
+with tabx(tab10):
+    need_survey()
     st.markdown("**Small-scale irrigation and soil care, district by district.** Built from NISR SAS 2026 (who irrigates, how, and "
                 "from what water source), CHIRPS rainfall (how often seasons were clearly dry) and AHS 2024 (why plots are not irrigated). "
                 "This is a **screening aid**: it shows where irrigation is rare and dry seasons are common, so a field visit or "
                 "water-source survey is a sensible next step. It does not say irrigation will raise yields.")
-    ir_season = st.radio("Season", ["A", "B"], horizontal=True, key="ir_season")
+    ir_season = SEL_S
+    st.markdown(f"**{SEASON_LABEL[ir_season]}**")
     shares = actions.practice_shares(D["cds"], D["prac"])
     scr = irg.screen(D["irr"], shares, _dry_exposure(), ir_season)
     cA, cB = st.columns([1.15, 1])
