@@ -96,16 +96,6 @@ Logged automatically in `data/processed/data_quality_log.csv`.
 - Follow-up records: demo only, not stored, not evidence of impact.
 - Crop table: NISR 2026 area and yield against each crop's own national yield. It is evidence of what is grown, not advice on what to plant.
 
-## EnaGIS integration (REMOVED from the app for the final submission; kept for the record)
-
-The app no longer displays any EnaGIS result. The notes below describe the earlier integration and the files that remain in the repository.
-
-- Source: EnaGIS (Team Dynamis, MIT). `data/enagis/` holds `district_summaries.json` (gathered 10 Oct 2026; Overture release 2026-09-23.1) and `district_production_2024.csv`, unchanged. `scripts/export_enagis.py` flattens them to `data/processed/enagis_district*.csv`.
-- All 30 district names match Musaruro's exactly (tested).
-- EnaGIS production inputs are SAS 2024 Season A shares scaled to 2024 national totals (ESTIMATED; Bugesera, Kirehe, Ngoma imputed). Musaruro's figures are SAS 2026. They are shown separately and never merged.
-- Evidence labels follow EnaGIS: OBSERVED (documented, reported), ESTIMATED (rankings, kWh/day, 2024 production), PREDICTED (look-alike sites), UNKNOWN (field verification n=0).
-- Not tested by us: EnaGIS's own Python and JavaScript tests. Run its CI (`make` targets in its repository) before relying on them.
-
 ## Irrigation and soil tables
 
 - Source: SAS 2026 Season A Tables 31-33 and Season B Tables 29-31 (district), AHS 2024 Tables 25, 26, 38 (province). Parsed by `src/build_water.py`. Season B Table 30 spells Nyarugenge as 'Nyarugenege'; matched by fuzzy name.
