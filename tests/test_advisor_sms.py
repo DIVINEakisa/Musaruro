@@ -65,3 +65,55 @@ def test_simulation_never_reports_delivery_and_history_has_no_phone_numbers():
     row = sms.record(hist, "Huye", sms.GROUPS[0], "watch", "hello", r)
     assert hist == [row] and row["delivered"] is False and "phone" not in " ".join(row)
     assert sms.GatewayProvider().send("x", sms.GROUPS[0]).sent is False
+
+
+# ---- real sending (gateway mocked: no network, no real credentials) ----------------------------------------
+CFG = dict(username="u", api_key="KEY", sender=None, pin="4321", sandbox=False)
+
+
+def test_rwanda_numbers_are_normalised_and_bad_ones_rejected():
+    good, bad = sms.parse_recipients("0788 123 456, +250 722 000 111\n250788123456, 0701234567, 07881")
+    assert good == ["+250788123456", "+250722000111"] and bad == ["0701234567", "07881"]
+    assert sms.mask("+250788123456").endswith("56") and "788123" not in sms.mask("+250788123456")
+
+
+def test_real_send_checks_pin_consent_limits_and_configuration():
+    ok = sms.validate_real(["+250788123456"], [], True, CFG, "4321", 0)
+    assert ok == []
+    assert any("PIN" in e for e in sms.validate_real(["+250788123456"], [], True, CFG, "0000", 0))
+    assert any("agreed" in e for e in sms.validate_real(["+250788123456"], [], False, CFG, "4321", 0))
+    assert any("At most" in e for e in sms.validate_real(["+250788123456"] * 4, [], True, CFG, "4321", 0))
+    assert any("already used" in e for e in sms.validate_real(["+250788123456"], [], True, CFG, "4321", sms.MAX_REAL_PER_SESSION))
+    assert any("not configured" in e for e in sms.validate_real(["+250788123456"], [], True, dict(CFG, api_key=None), "4321", 0))
+
+
+def test_gateway_request_and_result_handling():
+    seen = {}
+
+    def fake(url, headers, form):
+        seen.update(url=url, headers=headers, form=form)
+        return {"SMSMessageData": {"Recipients": [{"statusCode": 101, "status": "Success"}]}}
+
+    r = sms.AfricasTalkingProvider(CFG, post=fake).send("hi", sms.TEST_GROUP, ["+250788123456"])
+    assert r.sent and r.status.startswith("ACCEPTED") and "not confirmed" in r.detail
+    assert seen["form"]["to"] == "+250788123456" and seen["headers"]["apiKey"] == "KEY" and "sandbox" not in seen["url"]
+    sb = sms.AfricasTalkingProvider(dict(CFG, sandbox=True), post=fake).send("hi", "g", ["+250788123456"])
+    assert "sandbox" in seen["url"] and "no real phone" in sb.detail
+
+
+def test_gateway_rejection_and_errors_never_claim_sent_and_never_leak_the_key():
+    rej = lambda u, h, f: {"SMSMessageData": {"Recipients": [{"statusCode": 403, "status": "InvalidPhoneNumber"}]}}
+    r = sms.AfricasTalkingProvider(CFG, post=rej).send("hi", "g", ["+250788123456"])
+    assert not r.sent and "InvalidPhoneNumber" in r.detail
+
+    def boom(u, h, f):
+        raise OSError("connection to KEY failed")
+    r2 = sms.AfricasTalkingProvider(CFG, post=boom).send("hi", "g", ["+250788123456"])
+    assert not r2.sent and "KEY" not in r2.detail and r2.status == "FAILED"
+    assert not sms.AfricasTalkingProvider(dict(CFG, api_key=None)).send("hi", "g", ["+250788123456"]).sent
+
+
+def test_history_stores_only_masked_numbers():
+    hist = []
+    row = sms.record(hist, "Huye", sms.TEST_GROUP, "none", "hi", sms.Result("ACCEPTED by gateway", "", True), "en", ["+250788123456"])
+    assert "788123" not in str(row) and row["to"].endswith("56")

@@ -30,3 +30,14 @@ def test_other_seasons_do_not_crash(sel):
 def test_season_without_survey_tables_shows_notice():
     at = run(("B", 2020))
     assert any("not loaded" in i.value for i in at.info)
+
+
+def test_real_send_option_only_appears_when_configured():
+    at = AppTest.from_file(APP, default_timeout=180).run()
+    assert not [r for r in at.radio if r.key == "na_mode"]          # no secrets: simulation only
+    at2 = AppTest.from_file(APP, default_timeout=180)
+    at2.secrets["MUSARURO_AT_USERNAME"] = "sandbox"
+    at2.secrets["MUSARURO_AT_API_KEY"] = "x"
+    at2.secrets["MUSARURO_SMS_PIN"] = "1234"
+    at2.run()
+    assert not at2.exception and [r for r in at2.radio if r.key == "na_mode"]

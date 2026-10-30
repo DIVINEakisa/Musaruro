@@ -17,7 +17,6 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 import actions  # noqa: E402
 import advisor  # noqa: E402
-import enagis_bridge as eb  # noqa: E402
 import alerts  # noqa: E402
 import crop_view as cv  # noqa: E402
 import irrigation as irg  # noqa: E402
@@ -49,9 +48,7 @@ def load():
                 nat=r("national_reference.csv"), prac=r("practices_district.csv"), cds=r("crop_district_season.csv"),
                 seedcrop=r("improved_seed_crop_national.csv"), sow=r("sowing_month_district.csv"),
                 irr=r("irrigation_district.csv"), ahsw=r("ahs_water_province.csv"), ahss=r("ahs_soil_province.csv"),
-                land=r("land_use_district.csv"),
-                eg_dist=r("enagis_district.csv"), eg_chain=r("enagis_district_chain.csv"),
-                eg_prod=pd.read_csv(ROOT / "data" / "enagis" / "district_production_2024.csv"))
+                land=r("land_use_district.csv"),)
 
 
 D = load()
@@ -137,9 +134,9 @@ if (SEL_S, SEL_Y) in SURVEY_SEASONS:
 else:
     st.caption("Satellite rainfall is available for this season. NISR survey tabs need tables that are not loaded for it.")
 
-tab1, tab6, tab7, tab9, tab2, tab10, tab5, tab8, tab3, tab4 = st.tabs(
+tab1, tab6, tab7, tab9, tab2, tab10, tab5, tab3 = st.tabs(
     ["My district", "Alerts", "My next action", "Crops nationwide", "Priority districts", "Irrigation & soil", "Action plan",
-     "Infrastructure (EnaGIS)", "Rainfall watch", "About the data"])
+     "Rainfall watch"])
 
 # ------------------------------------------------------------------ 1. My district (farmer view)
 with tabx(tab1):
@@ -260,7 +257,7 @@ with tab6:
         st.caption("Rules (team-set, to be reviewed with agronomists): below 85% of normal = watch, below 60% = warning, "
                    "140% or more = wet watch. In 2017–2024 about one in five district-seasons would have been a watch and none "
                    "a warning at whole-season scale. Monitoring of past rainfall, not a forecast; low rainfall is not shown as a "
-                   "cause of low yields (see About).")
+                   "cause of low yields (see the README).")
 
 # ------------------------------------------------------------------ 1c. My next action
 with tab7:
@@ -335,23 +332,56 @@ with tab7:
             text = st.text_area("Message (editable)", default, key=f"na_text_{lang}_{n_dist}_{SEL_S}{SEL_Y}", height=90)
             li = sms_service.length_info(text)
             st.caption(f"{li['chars']} characters · {li['note']}")
-            grp = st.selectbox("Recipient group", ["(choose)"] + sms_service.GROUPS, key="na_group")
-            consent = st.checkbox("I confirm recipients in this group agreed to receive these messages", key="na_consent")
+            cfg = sms_service.load_config(st.secrets if hasattr(st, "secrets") else None)
+            can_real = sms_service.real_send_ready(cfg)
+            mode = "Simulation"
+            if can_real:
+                mode = st.radio("Mode", ["Simulation", "Send a real test SMS"], horizontal=True, key="na_mode",
+                                help="Real sending is for a small test with people who agreed. Simulation never sends.")
+            real = mode != "Simulation"
+            if "sms_hist" not in st.session_state:
+                st.session_state.sms_hist = []
+            if not real:
+                grp = st.selectbox("Recipient group", ["(choose)"] + [g for g in sms_service.GROUPS if g != sms_service.TEST_GROUP],
+                                   key="na_group")
+                consent = st.checkbox("I confirm recipients in this group agreed to receive these messages", key="na_consent")
+            else:
+                grp = sms_service.TEST_GROUP
+                nums_txt = st.text_area("Phone numbers (up to %d, one per line or separated by commas)" % sms_service.MAX_RECIPIENTS,
+                                        key="na_nums", height=70, placeholder="0788 123 456")
+                recips, rejected = sms_service.parse_recipients(nums_txt)
+                st.caption(f"{len(recips)} valid number(s). Numbers are used for this one request and are not saved; the history keeps only a masked form.")
+                consent = st.checkbox("The people at these numbers agreed to receive this test message", key="na_agreed")
+                pin = st.text_input("Operator PIN", type="password", key="na_pin")
             reviewed = True
             if lang == "rw":
                 reviewed = st.checkbox("A native Kinyarwanda speaker reviewed this text", key="na_rw_ok")
-            if "sms_hist" not in st.session_state:
-                st.session_state.sms_hist = []
-            if st.button("Simulate sending", key="na_send"):
+            used = sum(1 for h in st.session_state.sms_hist if h.get("to"))
+            if st.button("Send real test SMS" if real else "Simulate sending", key="na_send"):
                 errs = sms_service.validate(text, grp, consent, reviewed, lang)
+                if real:
+                    errs = [e for e in errs if "consented" not in e] + sms_service.validate_real(recips, rejected, consent, cfg, pin, used)
                 if errs:
                     for e in errs:
                         st.error(e)
                 else:
-                    res = sms_service.get_provider().send(text, grp)
-                    sms_service.record(st.session_state.sms_hist, n_dist, grp, r.level, text, res, lang)
-                    st.warning(f"{res.status}. {res.detail}")
-            st.caption("Simulation mode: no SMS gateway is connected and no phone numbers are collected. Nothing is delivered.")
+                    res = sms_service.get_provider(real, cfg).send(text, grp, recips if real else None)
+                    sms_service.record(st.session_state.sms_hist, n_dist, grp, r.level, text, res, lang, recips if real else None)
+                    (st.success if res.sent else st.warning)(f"{res.status}. {res.detail}")
+            if real:
+                st.caption("Real-send mode: the gateway accepted-or-rejected result is shown above. Delivery to the handset is not confirmed.")
+            else:
+                st.caption("Simulation mode: nothing is sent and no phone numbers are collected.")
+            if not can_real:
+                with st.expander("Why is nothing sent, and how do we turn real sending on?"):
+                    st.markdown("""This prototype **simulates** SMS by default, so a public demo cannot send messages to strangers or run up a bill.
+Real sending needs an SMS gateway account. To switch it on for a controlled test:
+1. Create an account with an SMS gateway that serves Rwanda (the code supports **Africa's Talking**; start in its *sandbox*).
+2. In Streamlit Cloud open **Manage app → Settings → Secrets** and add `MUSARURO_AT_USERNAME`, `MUSARURO_AT_API_KEY`, `MUSARURO_SMS_PIN`
+   (a PIN only you know) and, once approved, `MUSARURO_AT_SENDER`. Add `MUSARURO_AT_SANDBOX = "1"` while testing.
+3. Reboot the app. A **Send a real test SMS** option appears. Numbers are typed per test, limited to 3, and not stored.
+
+Never put the key in GitHub. Message people only with their agreement, and follow Rwanda's personal data protection law.""")
             if st.session_state.sms_hist:
                 hd = pd.DataFrame(st.session_state.sms_hist)
                 st.dataframe(hd, hide_index=True, width="stretch")
@@ -380,7 +410,7 @@ with tab7:
 with tabx(tab2):
     need_survey()
     st.markdown("Which districts to look at first? The score ranks districts on **how far yields fall below the national "
-                "average** and **how rarely farmers use improved seed**. Rainfall is not in the score (see About).")
+                "average** and **how rarely farmers use improved seed**. Rainfall is not in the score (see the README).")
     c1, c2 = st.columns([1, 2])
     pick = c1.radio("Season", ["A", "B", "Both (average)"], index=["A", "B"].index(SEL_S), horizontal=True, key=f"p_season_{SEL_S}")
     wy = c2.slider("Weight on yield gap (the rest goes to improved seed)", 0, 100, 50, 10, format="%d%%")
@@ -462,111 +492,6 @@ with tabx(tab5):
     st.caption("Peer districts differ in altitude, soils and climate, so treat them as sources of questions, not targets. "
                "Practice shares are % of developed cropland (NISR Tables 9–10 / 7–8), approximate.")
 
-# ------------------------------------------------------------------ 2c. Infrastructure (EnaGIS)
-with tab8:
-    st.markdown("**Agriculture, climate and infrastructure in one district view.** Musaruro (yield gaps from NISR SAS 2026, rainfall "
-                "from CHIRPS) is shown next to **EnaGIS** (Team Dynamis): candidate storage, cooling, milling and drying sites, and "
-                "estimated electricity needs. Each side keeps its own method and evidence label. **No combined score**, and neither "
-                "side is claimed to explain the other.")
-    st.caption("This tab is not season-specific: infrastructure candidates come from EnaGIS (data gathered Oct 2026), and the agriculture and "
-               "climate cards use the 2026 surveys and Season B 2026 rainfall whatever season is selected above.")
-    egd, egc = D["eg_dist"], D["eg_chain"]
-    prod = eb.production_2026(D["crop"], D["eg_prod"]).set_index("district")
-    di8 = add_priority(D["dist"])
-    i_dist = st.selectbox("District", DISTRICTS, index=DISTRICTS.index("Nyabihu"), key="in_dist")
-    ov = eb.overview(i_dist, egc, egd)
-    pa = di8[(di8.district == i_dist)].set_index("season")
-    rk = {k: int(di8[di8.season == k].priority_score.rank(ascending=False, method="min")[di8[di8.season == k].district == i_dist].iloc[0])
-          for k in ("A", "B")}
-    top_gap = D["crop"][(D["crop"].district == i_dist) & (D["crop"].season == "A") & (D["crop"].shortfall_t > 0)] \
-        .sort_values("shortfall_t", ascending=False).head(2)
-    gap_txt = "; ".join(f"{r.crop} {abs(r.yield_vs_national_pct):.0f}% below national (about {r.shortfall_t:,.0f} t)"
-                        for r in top_gap.itertuples()) or "none among the main crops"
-    al8 = alerts.build(D["rain"], D["sow"], "B", 2026, "season")
-    r8 = al8[al8.district == i_dist]
-    clim = alerts.explain(r8.iloc[0]) if len(r8) else None
-    clim_lab = f"{r8.iloc[0].icon} {r8.iloc[0].label}" if len(r8) else "n/a"
-
-    c1, c2, c3 = st.columns(3)
-    with c1.container(border=True):
-        st.markdown("#### Agriculture (Musaruro)")
-        st.metric("Priority rank, Season A / B (1 = highest)", f"{rk['A']} / {rk['B']}")
-        st.caption(f"Largest yield gaps, Season A: {gap_txt}.")
-        st.caption("Source: NISR SAS 2026. Observed survey estimate; small samples are noisy.")
-    with c2.container(border=True):
-        st.markdown("#### Climate (CHIRPS)")
-        st.metric("Season B 2026 rainfall", clim_lab)
-        st.caption(clim or "")
-        st.caption("Past rainfall monitoring, not a forecast, and not evidence of road or field conditions.")
-    with c3.container(border=True):
-        st.markdown("#### Setting (EnaGIS)")
-        d8 = ov["district"]
-        st.metric("Documented facilities", int(d8["documented_sites"]))
-        st.caption(f"Population {int(d8['population']):,} (WorldPop, OBSERVED) · buildings {int(d8['buildings']):,} · "
-                   f"town and village points {int(d8['settlement_points'])}.")
-        st.caption("Source: OpenStreetMap, Overture Maps, WorldPop; gathered 10 Oct 2026.")
-
-    st.subheader("Infrastructure screening by value chain (EnaGIS)")
-    t8 = egc[egc.district == i_dist][["chain", "ranked", "robust", "top_kwh_day", "site_1", "coverage", "siting_candidates"]].copy()
-    t8.columns = ["Value chain", "Sites ranked", "Robust (of 10)", "Top site kWh/day [ESTIMATED]", "First site to check",
-                  "Data coverage", "Look-alike sites to check [PREDICTED]"]
-    st.dataframe(t8.round(0), hide_index=True, width="stretch")
-    st.caption("These are candidate locations to investigate by phone or site visit, not confirmed facilities or investments. kWh/day is "
-               "an estimate from stated assumptions, not measured use. Field verification count: 0.")
-
-    st.subheader("Production, by survey year (shown separately)")
-    if i_dist in prod.index:
-        pr = prod.loc[i_dist]
-        pc1, pc2 = st.columns(2)
-        pc1.metric("Potato, SAS 2026 (A+B, Musaruro)", f"{pr.potato_t_2026:,.0f} t" if pd.notna(pr.potato_t_2026) else "unknown",
-                   help="Observed NISR survey estimate")
-        pc1.metric("Maize, SAS 2026 (A+B, Musaruro)", f"{pr.maize_t_2026:,.0f} t" if pd.notna(pr.maize_t_2026) else "unknown")
-        pc2.metric("Potato, 2024 estimate (EnaGIS input)", f"{pr.potato_t_2024:,.0f} t", help="ESTIMATED: SAS 2024 Season A shares scaled to national totals")
-        pc2.metric("Maize, 2024 estimate (EnaGIS input)", f"{pr.maize_t_2024:,.0f} t")
-        if bool(pr.yields_imputed):
-            st.warning("EnaGIS imputed this district's yields because the survey table lacked them. Treat its production inputs with care.")
-        st.caption("EnaGIS ranks sites using the 2024-based estimate. We show Musaruro's 2026 survey figures beside it for context; "
-                   "re-running EnaGIS with 2026 inputs needs its own data pipeline and an internet connection.")
-    brief_md = eb.to_markdown(
-        i_dist, ov,
-        {"Priority rank (1 = highest), Season A / B": f"{rk['A']} / {rk['B']}", "Largest yield gaps, Season A": gap_txt},
-        (f"{clim_lab}: {clim}" if clim else None), prod.loc[i_dist] if i_dist in prod.index else None)
-    st.download_button("Download district brief (Markdown)", brief_md, file_name=f"musaruro_enagis_{i_dist}.md", mime="text/markdown")
-
-    st.subheader("All districts side by side")
-    sb = di8[di8.season == "A"][["district", "province", "priority_score"]].rename(columns={"priority_score": "Priority A"}).merge(
-        di8[di8.season == "B"][["district", "priority_score"]].rename(columns={"priority_score": "Priority B"}), on="district")
-    sb = sb.merge(al8[["district", "label", "pct_of_normal"]].rename(columns={"label": "Rainfall B 2026", "pct_of_normal": "% of normal"}),
-                  on="district", how="left")
-    sb = sb.merge(egd[["district", "documented_sites", "population"]], on="district")
-    pc = egc[egc.chain == "Potato cold storage"][["district", "robust", "top_kwh_day"]].rename(
-        columns={"robust": "Potato storage robust", "top_kwh_day": "Potato storage kWh/day"})
-    mm = egc[egc.chain == "Maize milling"][["district", "top_kwh_day"]].rename(columns={"top_kwh_day": "Maize milling kWh/day"})
-    sb = sb.merge(pc, on="district").merge(mm, on="district")
-    f1, f2 = st.columns(2)
-    lv = f1.multiselect("Rainfall status (B 2026)", sorted(sb["Rainfall B 2026"].dropna().unique()), key="in_lv")
-    top_only = f2.checkbox("Only districts in the top 10 on Musaruro priority (Season A)", key="in_top")
-    if lv:
-        sb = sb[sb["Rainfall B 2026"].isin(lv)]
-    if top_only:
-        sb = sb[sb["Priority A"].rank(ascending=False, method="min") <= 10]
-    sb = sb.rename(columns={"district": "District", "province": "Province", "documented_sites": "Documented facilities",
-                            "population": "Population"})
-    st.dataframe(sb.round(0).sort_values("Priority A", ascending=False), hide_index=True, width="stretch")
-    st.caption("Click a column heading to sort. Use the filters to find districts that appear on several lists, then investigate; "
-               "the table does not rank districts overall. Priority scores are Musaruro's (yield gap and improved-seed use). kWh/day are "
-               "EnaGIS estimates for the top-ranked site only.")
-
-    st.subheader("EnaGIS Live, embedded")
-    st.markdown("Search a district (for example \"Musanze District, Rwanda\") to gather open data and rank sites. Searching needs an "
-                "internet connection and takes about a minute. The **Nyabihu · Irish potato cold storage** featured analysis opens offline.")
-    st.components.v1.iframe("app/static/enagis-live/index.html", height=820)
-    st.markdown("[Open EnaGIS Live in its own tab](app/static/enagis-live/index.html) · "
-                "[EnaGIS on GitHub](https://github.com/Elie1Z/EnaGIS)")
-    st.caption("EnaGIS by Team Dynamis, MIT licence. Data: © OpenStreetMap contributors (ODbL), Overture Maps Foundation, WorldPop (CC BY 4.0), "
-               "Open-Meteo (CC BY 4.0), NISR. EnaGIS was submitted to OSEAS 2026 (Assessment and Mapping of Productive Uses of Energy); "
-               "it is reused here by its authors, who are part of this team.")
-
 # ------------------------------------------------------------------ 3. Rainfall watch
 with tab3:
     rain = D["rain"]
@@ -620,8 +545,6 @@ with tab3:
     t = t.drop(columns=["status", "icon"]).sort_values("pct_of_normal" if ready else "rain_mm")
     t.columns = ["District", "Season rain (mm)", "Normal (mm)", "% of normal", "Status"]
     st.dataframe(t.round(0), hide_index=True, width="stretch")
-
-# ------------------------------------------------------------------ 4. About
 
 # ------------------------------------------------------------------ 9. Crops nationwide
 @st.cache_data
@@ -764,7 +687,7 @@ with tabx(tab10):
     st.markdown("##### Pump and solar sizing sketch")
     st.caption("A back-of-envelope estimate (ESTIMATED), using the same solar sizing rule as EnaGIS: kWh per day ÷ (peak sun hours × "
                "performance ratio). It ignores pipe losses, storage and water-use rights. Change every input to match the site; "
-               "EnaGIS Live (Infrastructure tab) shows mapped power lines for site-level supply.")
+               "Grid distance and site supply are not modelled here.")
     p1, p2, p3, p4, p5 = st.columns(5)
     a_ha = p1.number_input("Area to irrigate (ha)", 0.05, 50.0, 1.0, 0.05, key="pm_area")
     dmm = p2.number_input("Water per day (mm)", 1.0, 12.0, 5.0, 0.5, key="pm_mm", help="Crop water need is crop- and season-specific; ask an agronomist.")
@@ -791,38 +714,9 @@ with tabx(tab10):
     st.dataframe(pivot.round(1), width="stretch")
     st.caption("% of agricultural households reporting each soil threat, AHS 2024. Households could report more than one threat.")
 
-with tab4:
-    st.subheader("How Musaruro covers the Track 1 hints")
-    st.dataframe(pd.DataFrame([
-        ("Agricultural productivity", "Covered", "Yield gaps, priority districts, crop-by-district view, action plan", "Benchmark is the national average, not potential yield"),
-        ("Small-scale irrigation", "Covered (screening)", "Irrigation tab: who irrigates, techniques, water sources, dry-season frequency, pump and solar sizing sketch", "No slope, soil or water-source map, so it cannot say where irrigation is feasible"),
-        ("Soil conservation and fertility", "Partly", "Fertilizer share of cropland, soil threats reported by households, action plan", "No soil tests; erosion data only as hectares and province shares"),
-        ("Post-harvest collection and storage", "Partly", "EnaGIS candidate storage, cooling and drying sites with energy estimates", "No post-harvest loss data; sites are candidates to check"),
-        ("Processing and value addition", "Partly", "EnaGIS milling and drying candidates and energy needs", "No price or market data"),
-        ("Export market opportunities", "Not covered", "Gap stated in the Crops tab (coffee, tea)", "The NISR files used have no export or permanent-crop district data"),
-    ], columns=["Hint", "Status", "Where in Musaruro", "Limit"]), hide_index=True, width="stretch")
-    st.markdown("""
-### Where the numbers come from
-- **NISR Seasonal Agricultural Survey 2026**, Season A and B: area, harvested area, yield, production, improved-seed use, by district and crop.
-- **CHIRPS v3** monthly rainfall (Climate Hazards Center, UC Santa Barbara) and **geoBoundaries** district boundaries.
-- **NISR Agricultural Household Survey 2024**: why plots are not irrigated, irrigation water sources and soil threats, by province.
-- **EnaGIS** (Team Dynamis, MIT licence): candidate storage, cooling, milling and drying sites and estimated energy needs for all 30 districts, built on OpenStreetMap and Overture Maps (ODbL), WorldPop and Open-Meteo (CC BY 4.0). Shown in the Infrastructure tab with its own evidence labels; Musaruro does not recompute it.
-- Every figure traces to an NISR table; nothing is imputed. See `docs/DATA_NOTES.md`.
-
-### How the priority score works
-Districts are ranked (percentile) on a **yield gap index** (area-weighted shortfall against the national yield, crops with 100 ha or
-more harvested) and on a **seed gap** (100 minus % of farmers using improved seed). The score is the weighted average of the two ranks;
-you can change the weights.
-
-### What Musaruro does **not** claim
-- It does not claim improved seed, or any single input, *causes* higher yields. Beans show about 0.5% improved-seed use nationally, so seed cannot explain bean yield differences.
-- The national average is a benchmark, not potential yield. Altitude, soils and rainfall legitimately differ between districts.
-- District estimates come from small samples (20–68 survey segments per district): signals, not exact values.
-- Rainfall is **not** in the priority score. We tested district rainfall against district yields and found no consistent link.
-- Output at stake is a comparison with the national average, not a forecast.
-- EnaGIS sites are candidates to check, not confirmed facilities; its kWh/day figures are estimates, and its production inputs are 2024-based estimates. Yields, rainfall and infrastructure are shown side by side, never combined into one score or used to explain each other.
-""")
-    st.subheader("Data quality issues found in the NISR tables")
-    st.dataframe(D["dq"], hide_index=True, width="stretch")
-    st.caption("Season windows used for rainfall (assumption): A = Sep–Jan, B = Feb–Jun. Boundaries: geoBoundaries gbOpen (attribution required). "
-               "Built with AI assistance (Claude, Anthropic); see `docs/AI_USE_LOG.md`.")
+st.divider()
+st.caption("Data: NISR Seasonal Agricultural Survey 2026 (Seasons A and B) and Agricultural Household Survey 2024; CHIRPS v3 rainfall "
+           "(Climate Hazards Center, UC Santa Barbara); district boundaries from geoBoundaries (gbOpen). Rainfall is a satellite "
+           "estimate, not a forecast, and nothing here claims that any input causes yield differences. Season list, data limits, "
+           "definitions and how to run the app: see the README in the GitHub repository. Built with AI assistance (Claude, Anthropic); "
+           "see docs/AI_USE_LOG.md.")
