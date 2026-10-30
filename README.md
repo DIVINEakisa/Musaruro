@@ -10,13 +10,13 @@ check next.
 > Built for the **NISR Big Data Hackathon 2026, Track 1: Agricultural Productivity**.
 > Live app: <https://musaruro-app.streamlit.app/> · Code: <https://github.com/DIVINEakisa/Musaruro>
 
-**Contents:** [Problem and solution](#problem-and-solution) · [Quick start for judges](#quick-start-for-judges) ·
+**Contents:** [Problem and solution](#problem-and-solution) · 
 [Tab-by-tab guide](#tab-by-tab-guide) · [The season list: 2018 to 2027](#the-season-list-2018-to-2027-and-why-some-tabs-say-not-loaded) ·
 [Data sources](#data-sources-and-licences) · [Definitions and method](#definitions-and-method) ·
-[What Musaruro does not claim](#what-musaruro-does-not-claim) · [Track 1 hints](#how-musaruro-covers-the-track-1-hints) ·
+[What Musaruro does not claim](#what-musaruro-does-not-claim)  ·
 [Run it on your computer](#run-it-on-your-computer) · [Rebuild the data](#rebuild-the-data-from-the-raw-files) ·
-[Tests](#tests) · [SMS](#sms-simulation-by-default-optional-sandbox-test) · [Troubleshooting](#troubleshooting) ·
-[Repository map](#repository-map) · [AI use, team and declarations](#ai-use-team-and-declarations)
+[Tests](#tests) · [Troubleshooting](#troubleshooting) ·
+[Repository map](#repository-map) ·
 
 ---
 
@@ -349,7 +349,7 @@ docs/                      DATA_NOTES.md, AI_USE_LOG.md, DECLARATIONS.md
 
 ## Team and declarations
 
-**Declaration of originality and AI use:** [`docs/DECLARATIONS.md`](docs/DECLARATIONS.md).
+**Declaration of originality:** [`docs/DECLARATIONS.md`](docs/DECLARATIONS.md).
 
 **Team.** 
 
