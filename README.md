@@ -44,7 +44,7 @@ labelled as something to check with a local agronomist.
 
 ---
 
-## Quick start for judges
+## Quick start for everyone who wants to use Musaruro
 
 1. **Open the live app:** <https://musaruro-app.streamlit.app/> (the first load can take a few seconds while the free
    server wakes up).
@@ -223,32 +223,12 @@ These are logged in `data/processed/data_quality_log.csv` and handled as describ
   values, and the app shows a "small survey sample" badge where a district has fewer than 30 segments.
 - Rainfall figures are a **satellite estimate and monitoring, not a forecast**. Monthly totals cannot show dry spells
   inside a month, and the newest months are preliminary. A comparison with Meteo Rwanda is still to be done.
-- Alert thresholds, the irrigation screening rule and all agronomic wording are **team-set and need review** by a local
+- Alert thresholds, the irrigation screening rule, and all agronomic wording are **team-set and need review** by a local
   agronomist.
 - The SMS step is a **simulation** unless a gateway is configured, and no phone numbers are collected or stored.
 - Survey figures exist only for 2026 (see the season section). Nothing is back-filled.
 - Coffee, tea and export data are not covered (no such district data in the files used).
-
----
-
-## How Musaruro covers the Track 1 hints
-
-| Hint | Status | Where | Limit |
-|---|---|---|---|
-| Agricultural productivity | Covered | My district, Crops nationwide, Priority districts, Action plan | Benchmark is the national average, not potential yield |
-| Small-scale irrigation | Covered as a screening aid | Irrigation & soil | No slope, soil or water-source map, so it cannot say where irrigation is feasible |
-| Soil conservation and fertility management | Partly | Irrigation & soil (fertilizer share, reported soil threats), Action plan | No soil tests; erosion only as hectares and province shares |
-| Post-harvest collection and storage | **Not in this app** | n/a | Out of scope for this submission (see the note on EnaGIS below) |
-| Processing and value addition | **Not in this app** | n/a | Same |
-| Export market opportunities | **Not covered** | n/a | The NISR files used have no export or permanent-crop district data |
-
-**Note on EnaGIS.** *EnaGIS* (<https://github.com/Elie1Z/EnaGIS>, MIT licence) is a separate earlier project by team
-members (Team Dynamis) that maps candidate storage, cooling and milling sites. An earlier version of this app embedded its
-results; **for this submission that tab was removed, and the app does not use or display EnaGIS.** Its files
-(`data/enagis/`, `app/static/enagis-live/`, `src/enagis_bridge.py`, `scripts/export_enagis.py`) are still in the repository,
-unused by the app, with their licences and attributions in `data/enagis/NOTICE.md`. The only thing the app still takes from
-EnaGIS is the solar performance-ratio range in the pump sketch, as credited above.
-
+  
 ---
 
 ## Run it on your computer
@@ -320,38 +300,7 @@ What the tests check:
   and consent rules; the gateway is mocked (no network); history stores no phone numbers.
 - **App:** the app runs headless for several seasons (2018, 2022, 2026, 2027) without errors, and survey tabs show the "not
   loaded" notice for seasons without tables.
-- **EnaGIS bridge:** four tests for the unused bridge module.
-
----
-
-## SMS: simulation by default, optional sandbox test
-
-The SMS step in **My next action** **simulates** by default, so the public demo cannot message strangers or run up a bill.
-Nothing is sent, no phone numbers are collected, and the history table says "SIMULATED: not sent".
-
-A real **test** send is possible only if the operator sets gateway secrets. The code supports **Africa's Talking**
-(which serves Rwanda); use its **sandbox**, which accepts requests but delivers to no real phone.
-
-1. Create an Africa's Talking account and open its **Sandbox**. The sandbox username is `sandbox`. Generate an API key
-   under Settings, API Key.
-2. Add secrets (Streamlit Cloud: Manage app, Settings, Secrets; locally: copy `.streamlit/secrets.toml.example` to
-   `.streamlit/secrets.toml`, which is git-ignored):
-   ```toml
-   MUSARURO_AT_USERNAME = "sandbox"
-   MUSARURO_AT_API_KEY = "your-key"
-   MUSARURO_SMS_PIN = "a-pin-you-choose"
-   MUSARURO_AT_SANDBOX = "1"
-   ```
-3. Reload the app. A **Send a real test SMS** mode appears. You type up to 3 Rwandan numbers (for example `0788 123 456`),
-   confirm those people agreed, and enter the PIN. Each session is limited to 5 real sends.
-4. The result says "ACCEPTED by gateway". That does **not** confirm the phone received it. In the sandbox, check
-   *SMS, Bulk SMS, Outbox* in the Africa's Talking dashboard.
-
-Safeguards: numbers are used for one request and are not stored (the history keeps only a masked form); the key is never in the
-code or the repository; Kinyarwanda text must be confirmed as reviewed by a native speaker (no reviewed Kinyarwanda template
-exists yet, so English is the default). Messaging people needs their agreement and must follow Rwanda's personal data
-protection law.
-
+  
 ---
 
 ## Troubleshooting
@@ -388,12 +337,9 @@ src/
   irrigation.py            irrigation screening and pump sketch
   crop_view.py             one-crop national view
   rainfall_yield_check.py  rainfall versus yield test
-  enagis_bridge.py         (not used by the app) EnaGIS bridge from an earlier version
 data/
   raw/                     NISR workbooks, CHIRPS months clipped to Rwanda, district boundaries
   processed/               tables the app reads
-  enagis/                  (not used by the app) EnaGIS data and licences
-scripts/export_enagis.py   (not used by the app)
 tests/                     65 automated tests
 docs/                      DATA_NOTES.md, AI_USE_LOG.md, DECLARATIONS.md
 .streamlit/                config.toml, secrets.toml.example
@@ -401,21 +347,16 @@ docs/                      DATA_NOTES.md, AI_USE_LOG.md, DECLARATIONS.md
 
 ---
 
-## AI use, team and declarations
-
-**AI use.** AI assistance (Claude, Anthropic) was used in this project, as the hackathon rules allow: planning, parsing the NISR
-workbooks, indicators, rainfall alerts, the app, automated tests and documentation. Every use is recorded in
-[`docs/AI_USE_LOG.md`](docs/AI_USE_LOG.md). Agronomic wording and SMS text drafted by AI are marked as preliminary until reviewed by
-an agronomist and a native Kinyarwanda speaker. The team reviewed the work and is responsible for all of it.
+## Team and declarations
 
 **Declaration of originality and AI use:** [`docs/DECLARATIONS.md`](docs/DECLARATIONS.md).
 
-**Team.** *(to be completed before submission)*
+**Team.** 
 
 | Name | University | Role |
 |---|---|---|
-| TODO | TODO | TODO |
-| TODO | TODO | TODO |
+| Ange UWIZERA| RP-Kigali College | Team Leader & Researcher |
+| Divine AKISA | RP-Kigali College | Developer |
 
-**Licence and credits.** Data credits are in [Data sources](#data-sources-and-licences). EnaGIS files (unused by the app) are under the
-MIT licence with their data attributions in `data/enagis/NOTICE.md`.
+- **Musaruro Deployed Link:** https://musaruro-app.streamlit.app/
+- **Musaruro Video:** https://drive.google.com/file/d/1t9QpnV6FyuexHXg0rzHLjyolK0iQnXJD/view
